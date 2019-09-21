@@ -15,19 +15,7 @@ namespace Ref.Core
             Register = new RegisterCollection(this);
             Stack = new Stack();
 
-            Instructions.Add(OpCode.MOV, new MovInstruction());
-
-            Instructions.Add(OpCode.ADD, new AddInstruction());
-            Instructions.Add(OpCode.SUB, new SubInstruction());
-
-            Instructions.Add(OpCode.DIV, new DivInstruction());
-            Instructions.Add(OpCode.MUL, new MulInstruction());
-
-            Instructions.Add(OpCode.JMP, new JumpInstruction());
-            Instructions.Add(OpCode.PNT, new PrintRegisterInstruction());
-
-            Instructions.Add(OpCode.CMP, new CompareInstruction());
-            Instructions.Add(OpCode.PUSH, new PushInstruction());
+            FindInstruction();
 
             ErrorTable.Add(0x1, "The Register is protected");
         }
@@ -62,6 +50,20 @@ namespace Ref.Core
             if (!Instructions[op].Invoke(r, this))
             {
                 Register[Registers.ERR] = 1;
+            }
+        }
+
+        private void FindInstruction()
+        {
+            var types = GetType().Assembly.GetTypes();
+            foreach (var t in types)
+            {
+                if (t.BaseType == typeof(Instruction))
+                {
+                    var instance = (Instruction)Activator.CreateInstance(t);
+
+                    Instructions.Add(instance.OPCode, instance);
+                }
             }
         }
     }
