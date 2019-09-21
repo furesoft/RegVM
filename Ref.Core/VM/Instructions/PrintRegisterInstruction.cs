@@ -1,6 +1,4 @@
-﻿using RefVM.Core;
-
-namespace RefVM
+﻿namespace Ref.Core
 {
     public class PrintRegisterInstruction : Instruction
     {

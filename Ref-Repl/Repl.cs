@@ -1,9 +1,8 @@
-﻿using RefVM.Core;
-using RefVM.Parser;
+﻿using Ref.Core;
 using System;
 using System.Linq;
 
-namespace RefVM
+namespace Ref_Repl
 {
     public class Repl
     {

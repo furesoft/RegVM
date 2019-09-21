@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RefVM
+namespace Ref_Repl
 {
     internal class Program
     {

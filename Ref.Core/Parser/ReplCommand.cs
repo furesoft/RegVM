@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace RefVM.Parser
+namespace Ref.Core
 {
     public class ReplCommand
     {

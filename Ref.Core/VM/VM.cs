@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RefVM
+namespace Ref.Core
 {
     public class VM
     {
@@ -87,14 +87,14 @@ namespace RefVM
         {
             for (int i = 0; i < Register.Length; i++)
             {
-                var reg = new RefVM.Register();
+                var reg = new Register();
                 reg.Vm = this;
-                reg.Access = RefVM.Register.RegisterAccess.Read | RefVM.Register.RegisterAccess.Write;
+                reg.Access = Core.Register.RegisterAccess.Read | Core.Register.RegisterAccess.Write;
 
                 Register[i] = reg;
             }
 
-            Register[(int)Registers.F].Access = Register[(int)Registers.F].Access | RefVM.Register.RegisterAccess.Protected;
+            Register[(int)Registers.F].Access = Register[(int)Registers.F].Access | Core.Register.RegisterAccess.Protected;
         }
     }
 }

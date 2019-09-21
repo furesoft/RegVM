@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\filmee24\\source\\repos\\VM\\Ref-Repl\\Ref-Repl.csproj": {}
+    "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref-Repl\\Ref-Repl.csproj": {}
   },
   "projects": {
-    "C:\\Users\\filmee24\\source\\repos\\VM\\Ref-Repl\\Ref-Repl.csproj": {
+    "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref-Repl\\Ref-Repl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref-Repl\\Ref-Repl.csproj",
+        "projectUniqueName": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref-Repl\\Ref-Repl.csproj",
         "projectName": "Ref-Repl",
-        "projectPath": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref-Repl\\Ref-Repl.csproj",
+        "projectPath": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref-Repl\\Ref-Repl.csproj",
         "packagesPath": "C:\\Users\\filmee24\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref-Repl\\obj\\",
+        "outputPath": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref-Repl\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -33,8 +33,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\Ref.Core.csproj": {
-                "projectPath": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\Ref.Core.csproj"
+              "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\Ref.Core.csproj": {
+                "projectPath": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\Ref.Core.csproj"
               }
             }
           }
@@ -67,14 +67,14 @@
         }
       }
     },
-    "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\Ref.Core.csproj": {
+    "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\Ref.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\Ref.Core.csproj",
+        "projectUniqueName": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\Ref.Core.csproj",
         "projectName": "Ref.Core",
-        "projectPath": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\Ref.Core.csproj",
+        "projectPath": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\Ref.Core.csproj",
         "packagesPath": "C:\\Users\\filmee24\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\obj\\",
+        "outputPath": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

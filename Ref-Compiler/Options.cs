@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace RefVm_Compiler
+namespace Ref_Compiler
 {
     public class Options
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace RefVM
+namespace Ref.Core
 {
     public class VmWriter
     {

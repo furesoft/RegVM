@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RefVM
+namespace Ref.Core
 {
     [Flags]
     public enum OperatorType

@@ -4,7 +4,7 @@ using PipelineNet.Pipelines;
 using Serilog;
 using System.Collections.Generic;
 
-namespace RefVm_Compiler
+namespace Ref_Compiler
 {
     internal class Program
     {

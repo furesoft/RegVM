@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RefVM
+namespace Ref.Core
 {
     public class AssemblyLine
     {

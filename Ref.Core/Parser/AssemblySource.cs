@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RefVM.Parser
+namespace Ref.Core
 {
     public class AssemblySource
     {

@@ -1,0 +1,14 @@
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\obj\Debug\netcoreapp2.2\Ref-Runner.csprojAssemblyReference.cache
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\obj\Debug\netcoreapp2.2\Ref-Runner.csproj.CoreCompileInputs.cache
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\obj\Debug\netcoreapp2.2\Ref-Runner.AssemblyInfoInputs.cache
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\obj\Debug\netcoreapp2.2\Ref-Runner.AssemblyInfo.cs
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\bin\Debug\netcoreapp2.2\Ref-Runner.deps.json
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\bin\Debug\netcoreapp2.2\Ref-Runner.runtimeconfig.json
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\bin\Debug\netcoreapp2.2\Ref-Runner.runtimeconfig.dev.json
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\bin\Debug\netcoreapp2.2\Ref-Runner.dll
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\bin\Debug\netcoreapp2.2\Ref-Runner.pdb
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\bin\Debug\netcoreapp2.2\Ref.Core.dll
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\bin\Debug\netcoreapp2.2\Ref.Core.pdb
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\obj\Debug\netcoreapp2.2\Ref-Runner.csproj.CopyComplete
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\obj\Debug\netcoreapp2.2\Ref-Runner.dll
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref-Runner\obj\Debug\netcoreapp2.2\Ref-Runner.pdb

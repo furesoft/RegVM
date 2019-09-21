@@ -187,11 +187,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\Ref.Core.csproj",
+      "projectUniqueName": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\Ref.Core.csproj",
       "projectName": "Ref.Core",
-      "projectPath": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\Ref.Core.csproj",
+      "projectPath": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\Ref.Core.csproj",
       "packagesPath": "C:\\Users\\filmee24\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\filmee24\\source\\repos\\VM\\Ref.Core\\obj\\",
+      "outputPath": "C:\\Users\\filmee24\\Documents\\Projekte\\RegVM\\Ref.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

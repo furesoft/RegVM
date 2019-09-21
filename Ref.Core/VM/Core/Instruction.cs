@@ -1,4 +1,4 @@
-﻿namespace RefVM
+﻿namespace Ref.Core
 {
     public abstract class Instruction
     {

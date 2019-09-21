@@ -6,3 +6,11 @@ C:\Users\filmee24\source\repos\VM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.Ass
 C:\Users\filmee24\source\repos\VM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.AssemblyInfo.cs
 C:\Users\filmee24\source\repos\VM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.dll
 C:\Users\filmee24\source\repos\VM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.pdb
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\bin\Debug\netstandard2.0\Ref.Core.deps.json
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\bin\Debug\netstandard2.0\Ref.Core.dll
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\bin\Debug\netstandard2.0\Ref.Core.pdb
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.csproj.CoreCompileInputs.cache
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.AssemblyInfoInputs.cache
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.AssemblyInfo.cs
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.dll
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.pdb

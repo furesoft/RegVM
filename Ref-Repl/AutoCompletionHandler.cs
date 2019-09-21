@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Ref.Core;
+using System;
 using System.Linq;
 
-namespace RefVM
+namespace Ref_Repl
 {
     internal class AutoCompletionHandler : IAutoCompleteHandler
     {
@@ -11,7 +12,7 @@ namespace RefVM
         {
             if (text.EndsWith('$'))
             {
-                var registers = Enum.GetNames(typeof(Registers));
+                var registers = Enum.GetNames(typeof(Ref.Core.Register));
 
                 return registers.ToArray();
             }
