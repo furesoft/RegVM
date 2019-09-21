@@ -17,7 +17,7 @@ namespace Ref.Core
 
             FindInstruction();
 
-            ErrorTable.Add(0x1, "The Register is protected");
+            ErrorTable.Add(0x1, "The Register is protected"); //ToDo: add ErrorAttribute to Instructions
         }
 
         public void Run(VmWriter writer)
