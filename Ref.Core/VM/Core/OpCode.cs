@@ -13,5 +13,6 @@
         CMP,
         PUSH,
         POP,
+        JMPR,
     }
 }
