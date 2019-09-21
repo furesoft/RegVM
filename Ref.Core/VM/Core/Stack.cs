@@ -22,12 +22,14 @@
 
         public object Pop()
         {
+            Length--;
             return _data[Position--];
         }
 
         public void Push(object value)
         {
-            _data[Position++] = value;
+            _data[++Position] = value;
+            Length++;
         }
 
         private object[] _data;
