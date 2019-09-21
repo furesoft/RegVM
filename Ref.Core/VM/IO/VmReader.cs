@@ -69,8 +69,9 @@ namespace Ref.Core
 
         public byte ReadWord()
         {
+            var b = reader.ReadByte();
             Vm.Register[(int)Registers.IPR].Increment();
-            return reader.ReadByte();
+            return b;
         }
 
         public void SetPosition(int addr)
