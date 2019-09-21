@@ -8,9 +8,12 @@ namespace Ref.Core
         public Dictionary<OpCode, Instruction> Instructions { get; set; } = new Dictionary<OpCode, Instruction>();
         public RegisterCollection Register { get; set; }
 
+        public Stack Stack { get; set; }
+
         public VM()
         {
             Register = new RegisterCollection(this);
+            Stack = new Stack();
 
             Instructions.Add(OpCode.MOV, new MovInstruction());
 
@@ -24,6 +27,7 @@ namespace Ref.Core
             Instructions.Add(OpCode.PNT, new PrintRegisterInstruction());
 
             Instructions.Add(OpCode.CMP, new CompareInstruction());
+            Instructions.Add(OpCode.PUSH, new PushInstruction());
 
             ErrorTable.Add(0x1, "The Register is protected");
         }
