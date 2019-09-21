@@ -16,16 +16,16 @@ namespace Ref.Core
             }
         }
 
-        public uint Allocate(int size)
+        public Addr Allocate(int size)
         {
             var firstBlock = AllocateBlock();
 
-            return firstBlock.Id;
+            return new Addr(firstBlock.Id, this);
         }
 
-        public void Free(uint address)
+        public void Free(Addr address)
         {
-            var block = storage.Find(address);
+            var block = storage.Find(address.ToUInt());
 
             Block currentBlock = block;
             while (true)
