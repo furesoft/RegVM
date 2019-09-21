@@ -1,9 +1,12 @@
 ﻿using CommandLine;
+using System.Collections.Generic;
 
 namespace Ref_Compiler
 {
     public class Options
     {
+        public Dictionary<string, object> Tags = new Dictionary<string, object>();
+
         [Option('i', "input", Required = true, HelpText = "File to compile")]
         public string Input { get; set; }
 

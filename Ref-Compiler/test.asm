@@ -1,4 +1,5 @@
 ﻿mov $a, #f
 mov $b, #3
 
-sub $a, #2
+sub $a, #b
+pnt

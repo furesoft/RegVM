@@ -9,7 +9,7 @@ namespace Ref.Core
         public static AssemblySource Parse(string src)
         {
             var res = new AssemblySource();
-            var spl = src.Split(new char[] { ';', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+            var spl = src.Split(new char[] { ';', '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var line in spl)
             {

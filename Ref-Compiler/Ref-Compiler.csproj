@@ -20,4 +20,10 @@
     <Folder Include="MiddleWare\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="test.asm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
