@@ -16,6 +16,10 @@ namespace Ref.Core
 
                 vm.Stack.Push(value);
             }
+            else if (val.Type == OperandType.Value)
+            {
+                vm.Stack.Push(val.Value);
+            }
 
             return true;
         }
