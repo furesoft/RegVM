@@ -11,5 +11,6 @@
         JMP,
         PNT,
         CMP,
+        PUSH,
     }
 }
