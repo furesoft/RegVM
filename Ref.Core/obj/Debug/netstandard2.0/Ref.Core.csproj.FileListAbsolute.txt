@@ -14,3 +14,4 @@ C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref
 C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.AssemblyInfo.cs
 C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.dll
 C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.pdb
+C:\Users\filmee24\Documents\Projekte\RegVM\Ref.Core\obj\Debug\netstandard2.0\Ref.Core.csprojAssemblyReference.cache

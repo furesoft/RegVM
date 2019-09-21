@@ -8,20 +8,27 @@ namespace Ref_Repl
     {
         public char[] Separators { get; set; } = new char[] { ' ', ';', '$', '.' };
 
+        public AutoCompletionHandler()
+        {
+            trie = new Trie<bool>();
+
+            foreach (var ops in Enum.GetNames(typeof(OpCode)))
+            {
+                trie.Add(ops.ToLower(), false);
+            }
+
+            trie.Add(".register", false);
+            trie.Add(".clear", false);
+            trie.Add(".explain", false);
+        }
+
         public string[] GetSuggestions(string text, int index)
         {
-            if (text.EndsWith('$'))
-            {
-                var registers = Enum.GetNames(typeof(Ref.Core.Register));
+            var res = trie.GetByPrefix(text.ToLower());
 
-                return registers.ToArray();
-            }
-            if (text.StartsWith('.'))
-            {
-                return new string[] { "register", "clear", "explain" };
-            }
-
-            return Enum.GetNames(typeof(OpCode));
+            return res.Select(_ => _.Key).ToArray();
         }
+
+        private Trie<bool> trie;
     }
 }
