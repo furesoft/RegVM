@@ -352,3 +352,11 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 *.dll
+
+Ref-Runner/bin/Debug/netcoreapp2.2/
+
+Ref-Runner/obj/Debug/netcoreapp2.2/
+
+Ref.Core/bin/Debug/netstandard2.0/
+
+Ref.Core/obj/Debug/netstandard2.0/
