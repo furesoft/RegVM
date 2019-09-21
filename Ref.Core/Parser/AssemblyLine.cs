@@ -12,11 +12,13 @@ namespace Ref.Core
         public static AssemblyLine Parse(string src)
         {
             var line = new AssemblyLine();
-            line.Opcode = (OpCode)Enum.Parse(typeof(OpCode), src.Substring(0, 3).ToUpper());
 
             if (src.Length > 3)
             {
-                var argList = src.Substring(3);
+                var name = src.Split(' ')[0];
+                line.Opcode = (OpCode)Enum.Parse(typeof(OpCode), name.ToUpper());
+
+                var argList = src.Substring(name.Length);
                 var argSpl = argList.Split(',').Select(_ => _.Trim());
 
                 foreach (var arg in argSpl)
