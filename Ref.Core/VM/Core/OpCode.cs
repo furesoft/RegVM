@@ -12,5 +12,6 @@
         PNT,
         CMP,
         PUSH,
+        POP,
     }
 }
