@@ -38,12 +38,12 @@ namespace Ref.Core
                 }
                 else
                 {
-                    Vm.Register[(int)Registers.ERR].SetValue(1);
+                    Vm.Register[Registers.ERR] = 1;
                 }
             }
             else
             {
-                Vm.Register[(int)Registers.ERR].SetValue(1);
+                Vm.Register[Registers.ERR] = 1;
             }
         }
 

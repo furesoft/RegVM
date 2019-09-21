@@ -6,16 +6,16 @@
 
         public override bool Invoke(VmReader reader, VM vm)
         {
-            var reg1 = reader.ReadOperand();
-            var reg2 = reader.ReadOperand();
-            var regResult = reader.ReadOperand();
+            var reg1 = reader.ReadOperand().As<Registers>();
+            var reg2 = reader.ReadOperand().As<Registers>();
+            var regResult = reader.ReadOperand().As<Registers>();
 
-            var v1 = vm.GetValue((Registers)reg1.Value);
-            var v2 = vm.GetValue((Registers)reg2.Value);
+            var v1 = vm.Register[reg1];
+            var v2 = vm.Register[reg2];
 
-            vm.SetValue((Registers)regResult.Value, v1 * v2);
-            vm.ClearRegister((Registers)reg1.Value);
-            vm.ClearRegister((Registers)reg2.Value);
+            vm.Register[regResult] = v1 * v2;
+            vm.Register.ClearRegister(reg1);
+            vm.Register.ClearRegister(reg2);
 
             return true;
         }

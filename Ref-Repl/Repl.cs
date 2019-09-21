@@ -97,7 +97,8 @@ namespace Ref_Repl
                         }
 
                         vm.Run(writer);
-                        vm.SetValue(Registers.IPR, 0);
+
+                        vm.Register[Registers.IPR] = 0;
                     }
                 }
             }

@@ -19,11 +19,11 @@ namespace Ref.Core
 
             if (op == OperatorType.EQUAL)
             {
-                result = vm.Register[(int)lhsReg].GetValue() == vm.Register[(int)rhsReg].GetValue();
+                result = vm.Register[lhsReg] == vm.Register[rhsReg];
             }
             else if (op == OperatorType.NOTEQUAL)
             {
-                result = vm.Register[(int)lhsReg].GetValue() != vm.Register[(int)rhsReg].GetValue();
+                result = vm.Register[lhsReg] != vm.Register[rhsReg];
             }
             else if (op == OperatorType.LESS)
             {
@@ -42,8 +42,7 @@ namespace Ref.Core
                 result = lhsReg <= rhsReg;
             }
 
-            vm.SetValue(resultReg, result ? 1 : 0);
-
+            vm.Register[resultReg] = result ? 1 : 0;
             return true;
         }
     }

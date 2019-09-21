@@ -10,7 +10,8 @@ namespace Ref.Core
         {
             var addr = reader.ReadQWord();
 
-            vm.SetValue(Registers.IPR, addr);
+            vm.Register[Registers.IPR] = addr;
+
             //reader.SetPosition(addr);
 
             return true;

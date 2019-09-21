@@ -10,15 +10,16 @@
             var reg2 = reader.ReadOperand<Registers>();
             var regResult = reader.ReadOperand<Registers>();
 
-            var v1 = vm.GetValue(reg1);
-            var v2 = vm.GetValue(reg2);
+            var v1 = vm.Register[reg1];
+            var v2 = vm.Register[reg2];
 
-            vm.SetValue(regResult, v1 / v2);
-            vm.ClearRegister(reg1);
-            vm.ClearRegister(reg2);
+            vm.Register[regResult] = v1 / v2;
+
+            vm.Register.ClearRegister(reg1);
+            vm.Register.ClearRegister(reg2);
 
             //set remainder
-            vm.SetValue(Registers.ORE, v1 % v2);
+            vm.Register[Registers.ORE] = v1 % v2;
 
             return true;
         }

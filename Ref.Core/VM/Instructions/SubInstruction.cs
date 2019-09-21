@@ -10,12 +10,13 @@
             var reg2 = reader.ReadOperand();
             var regResult = reader.ReadOperand();
 
-            var v1 = vm.GetValue((Registers)reg1.Value);
-            var v2 = vm.GetValue((Registers)reg2.Value);
+            var v1 = vm.Register[reg1.As<Registers>()];
+            var v2 = vm.Register[reg2.As<Registers>()];
 
-            vm.SetValue((Registers)regResult.Value, v1 - v2);
-            vm.ClearRegister((Registers)reg1.Value);
-            vm.ClearRegister((Registers)reg2.Value);
+            vm.Register[regResult.As<Registers>()] = v1 - v2;
+
+            vm.Register.ClearRegister(reg1.As<Registers>());
+            vm.Register.ClearRegister(reg2.As<Registers>());
 
             return true;
         }

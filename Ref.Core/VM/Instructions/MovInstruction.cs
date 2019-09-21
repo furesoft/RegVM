@@ -11,11 +11,11 @@
 
             if (reg.Type == OperandType.Register && val.Type == OperandType.Value)
             {
-                vm.SetValue((Registers)reg.Value, (int)val.Value);
+                vm.Register[(Registers)reg.Value] = (int)val.Value;
             }
             if (reg.Type == OperandType.Register && val.Type == OperandType.Register)
             {
-                vm.SetValue((Registers)reg.Value, vm.GetValue((Registers)val.Value));
+                vm.Register[(Registers)reg.Value] = vm.Register[(Registers)val.Value];
             }
 
             return true;

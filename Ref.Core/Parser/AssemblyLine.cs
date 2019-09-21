@@ -33,7 +33,15 @@ namespace Ref.Core
                     else if (type == "#")
                     {
                         op.Type = OperandType.Value;
-                        op.Value = Convert.ToInt32(val, 16);
+
+                        if (val.StartsWith("0x"))
+                        {
+                            op.Value = Convert.ToInt32(val.Substring(2), 16);
+                        }
+                        else
+                        {
+                            op.Value = Convert.ToInt32(val, 16);
+                        }
                     }
 
                     line.Operands.Add(op);
