@@ -19,7 +19,7 @@ namespace Ref.Core
                 line.Opcode = (OpCode)Enum.Parse(typeof(OpCode), name.ToUpper());
 
                 var argList = src.Substring(name.Length);
-                var argSpl = argList.Split(',').Select(_ => _.Trim());
+                var argSpl = argList.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(_ => _.Trim());
 
                 foreach (var arg in argSpl)
                 {
