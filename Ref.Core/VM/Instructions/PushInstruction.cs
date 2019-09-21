@@ -8,7 +8,16 @@ namespace Ref.Core
 
         public override bool Invoke(VmReader reader, VM vm)
         {
-            throw new NotImplementedException();
+            var val = reader.ReadOperand();
+
+            if (val.Type == OperandType.Register)
+            {
+                var value = vm.Register[val.As<Registers>()];
+
+                vm.Stack.Push(value);
+            }
+
+            return true;
         }
     }
 }
