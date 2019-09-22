@@ -21,11 +21,6 @@ namespace Ref.Core
             bw.Write(value);
         }
 
-        public void Write(short value)
-        {
-            bw.Write(BitConverter.GetBytes(value));
-        }
-
         public void Write(int value)
         {
             var operand = new Operand();
@@ -46,7 +41,7 @@ namespace Ref.Core
                     break;
 
                 case OperandType.Addr:
-                    Write((short)value.Value);
+                    bw.Write((short)value.Value);
                     break;
 
                 case OperandType.Label:
