@@ -362,3 +362,11 @@ Ref.Core/bin/Debug/netstandard2.0/
 Ref.Core/obj/Debug/netstandard2.0/
 
 Ref-Repl/bin/Debug/netcoreapp2.2/
+
+Ref-Compiler/obj/
+
+Ref-Repl/obj/
+
+Ref-Runner/obj/
+
+Ref.Core/obj/
