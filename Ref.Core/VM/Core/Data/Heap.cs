@@ -20,7 +20,7 @@ namespace Ref.Core
         {
             var firstBlock = AllocateBlock();
 
-            return new Addr(firstBlock.Id, this);
+            return new Addr(firstBlock.Id, this, size);
         }
 
         public void Free(Addr address)
