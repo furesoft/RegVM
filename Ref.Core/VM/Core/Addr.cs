@@ -4,15 +4,21 @@ namespace Ref.Core
 {
     public struct Addr
     {
-        public Addr(uint addr, Heap h)
+        public int Length { get; }
+
+        public Addr(uint addr, Heap h, int length)
         {
             this._value = addr;
             this._heap = h;
+            this.Length = length;
         }
 
         public object Dereference()
         {
-            _heap.storage.Find(_value);
+            byte[] dest = new byte[Length];
+            _heap.storage.Find(_value).Read(dest, 0, 0, Length);
+
+            return dest; //ToDo: convert byte[] to real object
         }
 
         public uint ToUInt()
