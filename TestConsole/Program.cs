@@ -11,9 +11,12 @@ namespace TestConsole
             var ass = new CommandWriter();
             ass.Add(OpCode.MOV, (int)Registers.A, 0xC00FFEE);
             ass.Add(OpCode.MOV, (int)Registers.B, 0x2A);
+            ass.Add(OpCode.PRINT);
 
             var vm = new VirtualMachine();
             vm.Run(ass.Save());
+
+            Console.ReadLine();
         }
     }
 }

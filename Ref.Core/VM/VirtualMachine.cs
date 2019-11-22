@@ -39,11 +39,15 @@ namespace Ref.Core
             var cmd = new AsmCommand();
             cmd.OpCode = (OpCode)r.ReadInt32();
 
-            var argCount = r.ReadInt16();
+            var argCount = r.ReadInt32();
+
+            Register[Registers.IPR] += sizeof(int) * 2;
+
             for (int i = 0; i < argCount; i++)
             {
                 var arg = new AsmCommandArg();
                 arg.Value = r.ReadInt32();
+                Register[Registers.IPR] += sizeof(int);
 
                 cmd.Args.Add(arg);
             }
