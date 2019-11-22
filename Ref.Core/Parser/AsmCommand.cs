@@ -12,12 +12,12 @@ namespace Ref.Core.Parser
         public List<AsmCommandArg> Args { get; set; } = new List<AsmCommandArg>();
         public string Name { get; set; }
         public OpCode OpCode { get; set; }
-        public int this[int index] => Args[index].Value;
+        public object this[int index] => Args[index].Value;
     }
 
     public class AsmCommandArg
     {
         public ArgType Type { get; set; }
-        public int Value { get; set; }
+        public object Value { get; set; }
     }
 }

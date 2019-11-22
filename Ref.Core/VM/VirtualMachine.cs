@@ -120,7 +120,7 @@ namespace Ref.Core
                     var reg = cmd[0];
                     var val = cmd[1];
 
-                    Register[(Registers)reg] = val;
+                    Register[(Registers)reg] = (int)val;
 
                     break;
 
@@ -133,13 +133,13 @@ namespace Ref.Core
                     break;
 
                 case OpCode.JMP:
-                    var addr = cmd[0];
+                    var addr = (int)cmd[0];
                     Register[Registers.IPR] = addr;
 
                     break;
 
                 case OpCode.JMPR:
-                    var jmp_index = cmd[0];
+                    var jmp_index = (int)cmd[0];
 
                     if (jmp_index < 0)
                     {
@@ -161,7 +161,7 @@ namespace Ref.Core
                     break;
 
                 case OpCode.CALL:
-                    var cll = cmd[0];
+                    var cll = (int)cmd[0];
                     Stack.PushRegisters(Register);
                     Register[Registers.IPR] = cll;
 

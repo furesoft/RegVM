@@ -4,3 +4,31 @@
 @start CompilationUnit
 
 CompilationUnit<AsmFile> = "hello" {AsmFile.Create()}
+
+LabelDefinition<LabelDefintionNode> = _o name:identifier ":" _o body:(("\t" singleCommand)*) {SyntaxNode.CreateLabel(name, body)}
+singleCommand<AsmCommand> = _o op:identifier args:args? {SyntaxNode.CreateCommand(op, args)}
+
+args<AsmCommandArg> = registerArg / lbl:identifier {SyntaxNode.CreateLabelCall(lbl)} / numberLiteral
+registerArg<AsmCommandArg> = "$" name:identifier {SyntaxNode.CreateRegister(name)}
+
+identifier = id:("" ([a-zA-Z_][a-zA-Z_0-9]*)) {id}
+
+integerLiteral = value:("" [0-9]+) {value}
+hexLiteral = "0x" value:("" [0-9A-Za-z]+) {SyntaxNode.CreateHexInteger(value)}
+binLiteral = "0b" value:("" [01_]+) {SyntaxNode.CreateBinInteger(value)}
+numberLiteral<AsmCommandArg> = a:(hexLiteral / binLiteral / integerLiteral) {SyntaxNode.CreateNumArg(a)}
+
+whitespace = [\t ] / EOL
+_ -memoize = (whitespace / EOL / comment)*
+_o = _?
+
+comment -memoize = singleLineComment / multiLineComment
+
+singleLineComment -memoize -lexical = "//" (!eolChar .)*
+
+multiLineComment -lexical  = "/*" (!"*/" .)* "*/"
+
+eolChar = [\n\r\u2028\u2029]
+
+EOL = '\n' / '\r' / '\r\n'
+EOF = !.  / unexpected:&. #error{ "LLC0001: Unexpected '" + unexpected + "'" }
