@@ -38,6 +38,12 @@ namespace Ref.Core.VM.Core
 
             foreach (var item in raw)
             {
+                if (item == 0)
+                {
+                    sb.Append("00 ");
+                    continue;
+                }
+
                 sb.Append(item.ToString("x") + " ");
             }
 
