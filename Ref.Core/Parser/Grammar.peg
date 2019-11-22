@@ -1,0 +1,4 @@
+﻿@namespace Ref.Core
+@classname AsmParser
+
+@start CompilationUnit
