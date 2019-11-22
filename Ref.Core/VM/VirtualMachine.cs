@@ -172,7 +172,7 @@ namespace Ref.Core
                     break;
 
                 case OpCode.PRINT:
-                    Thread.Sleep(2000); //for demo propose only, should be removed
+                    Thread.Sleep(1500); //for demo propose only, should be removed
                     Console.Clear();
 
                     Utils.PrintRegisters(Register);
