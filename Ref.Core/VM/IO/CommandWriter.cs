@@ -9,29 +9,31 @@ namespace Ref.Core.VM.IO
 {
     public class CommandWriter
     {
-        public List<AsmCommand> Commands { get; set; } = new List<AsmCommand>();
+        public CommandWriter()
+        {
+            _ms = new MemoryStream();
+            _bw = new BinaryWriter(_ms);
+        }
 
         public void Add(OpCode op, params int[] args)
         {
-            Commands.Add(new AsmCommand { OpCode = op, Args = args.Select(_ => new AsmCommandArg { Value = _ }).ToList() });
+            _bw.Write((int)op);
+            _bw.Write(args.Length);
+
+            foreach (var arg in args)
+            {
+                _bw.Write(arg);
+            }
         }
+
+        public int MakeLabel() => (int)_ms.Position;
 
         public byte[] Save()
         {
-            var ms = new MemoryStream();
-            var bw = new BinaryWriter(ms);
-
-            foreach (var cmd in Commands)
-            {
-                bw.Write((int)cmd.OpCode);
-                bw.Write(cmd.Args.Count);
-                foreach (var arg in cmd.Args)
-                {
-                    bw.Write(arg.Value);
-                }
-            }
-
-            return ms.ToArray();
+            return _ms.ToArray();
         }
+
+        private BinaryWriter _bw;
+        private MemoryStream _ms;
     }
 }
