@@ -1,7 +1,9 @@
 ﻿using Ref.Core.Parser;
+using Ref.Core.VM.Core;
 using Ref.Core.VM.IO;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace Ref.Core
 {
@@ -19,6 +21,9 @@ namespace Ref.Core
         PUSH,
         POP,
         JMP,
+        LOAD,
+        CALL,
+        RET,
     }
 
     public class VirtualMachine
@@ -59,7 +64,7 @@ namespace Ref.Core
             }
         }
 
-        public void Run(byte[] raw)
+        public void Run(byte[] raw, int startAddress = 0)
         {
             //ToDo: implement custom file format
 
@@ -72,6 +77,11 @@ namespace Ref.Core
             {
                 Console.WriteLine("An Error has occured: Error-code: 0x{0:x}: {1}", _, ErrorTable.GetExplanation(_));
             });
+
+            if (startAddress != 0)
+            {
+                Register.SetValue(Registers.IPR, startAddress);
+            }
 
             while (Register[Registers.IPR] < raw.Length)
             {
@@ -106,11 +116,19 @@ namespace Ref.Core
         {
             switch (cmd.OpCode)
             {
-                case OpCode.MOV:
+                case OpCode.LOAD:
                     var reg = cmd[0];
                     var val = cmd[1];
 
                     Register[(Registers)reg] = val;
+
+                    break;
+
+                case OpCode.MOV:
+                    var fromReg = (Registers)cmd[0];
+                    var toReg = (Registers)cmd[1];
+
+                    Register[toReg] = Register[fromReg];
 
                     break;
 
@@ -142,7 +160,21 @@ namespace Ref.Core
 
                     break;
 
+                case OpCode.CALL:
+                    var cll = cmd[0];
+                    Stack.PushRegisters(Register);
+                    Register[Registers.IPR] = cll;
+
+                    break;
+
+                case OpCode.RET:
+                    Stack.PopRegisters(Register);
+                    break;
+
                 case OpCode.PRINT:
+                    Thread.Sleep(2000); //for demo propose only, should be removed
+                    Console.Clear();
+
                     Utils.PrintRegisters(Register);
                     break;
 
