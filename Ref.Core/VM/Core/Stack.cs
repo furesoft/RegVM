@@ -1,8 +1,12 @@
-﻿namespace Ref.Core
+﻿using Ref.Core.VM.Core.MemoryImpl;
+using Ref.Core.VM.IO;
+
+namespace Ref.Core
 {
     public class Stack
     {
         public int Length { get; private set; }
+        public Memory Memory => new StackMemory(_data);
         public int Position { get; private set; }
 
         public Stack(int capacity = 50)

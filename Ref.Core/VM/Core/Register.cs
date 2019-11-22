@@ -52,6 +52,6 @@ namespace Ref.Core
             return value.ToString();
         }
 
-        private int value;
+        internal int value;
     }
 }

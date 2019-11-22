@@ -1,4 +1,5 @@
 ﻿using Ref.Core.Parser;
+using Ref.Core.VM.IO;
 using System;
 using System.IO;
 
@@ -76,6 +77,29 @@ namespace Ref.Core
             {
                 ParseInstruction(r);
             }
+        }
+
+        public byte[] ViewMemoryOf<T>(int n = 10)
+        {
+            var memoryType = typeof(T).Name;
+            Memory result;
+
+            switch (memoryType)
+            {
+                case nameof(Stack):
+                    result = Stack.Memory;
+                    break;
+
+                case nameof(Register):
+                    result = Register.Memory;
+                    break;
+
+                default:
+                    result = null;
+                    break;
+            }
+
+            return result.Slice(n);
         }
 
         private bool RunInstruction(AsmCommand cmd)

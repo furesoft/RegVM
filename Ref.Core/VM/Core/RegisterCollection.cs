@@ -1,10 +1,13 @@
 ﻿using System;
+using Ref.Core.VM.Core.MemoryImpl;
+using Ref.Core.VM.IO;
 
 namespace Ref.Core
 {
     public class RegisterCollection
     {
         public int Length => Enum.GetNames(typeof(Registers)).Length;
+        public Memory Memory => new RegisterMemory(Register);
         public Register[] Register { get; set; }
         public VirtualMachine Vm { get; private set; }
 
