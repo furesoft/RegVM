@@ -10,7 +10,7 @@ namespace Ref.Core
         public Memory Memory => new StackMemory(_data);
         public int Position { get; private set; }
 
-        public Stack(int capacity = 50)
+        public Stack(int capacity = 500)
         {
             _data = new int?[capacity];
             Position = -1;
