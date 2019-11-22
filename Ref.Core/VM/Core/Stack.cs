@@ -1,5 +1,5 @@
-﻿using Ref.Core.VM.Core.MemoryImpl;
-using Ref.Core.VM.IO;
+﻿using Ref.Core.VM.IO;
+using Ref.Core.VM.IO.MemoryImpl;
 
 namespace Ref.Core
 {
@@ -17,11 +17,9 @@ namespace Ref.Core
 
         public void Clear()
         {
-            for (int i = 0; i < Position; i++)
-            {
-                _data[i] = null;
-                Position = -1;
-            }
+            Memory.Clear();
+
+            Position = -1;
         }
 
         public int Pop()

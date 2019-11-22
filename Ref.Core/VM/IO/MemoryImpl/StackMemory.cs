@@ -6,9 +6,19 @@ namespace Ref.Core.VM.IO.MemoryImpl
 {
     internal class StackMemory : Memory
     {
+        public override int Length => _data.Length;
+
         public StackMemory(int?[] data)
         {
             _data = data;
+        }
+
+        public override void Clear()
+        {
+            for (int i = 0; i < _data.Length; i++)
+            {
+                _data[i] = null;
+            }
         }
 
         public override byte[] GetMemory()

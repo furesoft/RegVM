@@ -1,6 +1,6 @@
 ﻿using System;
-using Ref.Core.VM.Core.MemoryImpl;
 using Ref.Core.VM.IO;
+using Ref.Core.VM.IO.MemoryImpl;
 
 namespace Ref.Core
 {
@@ -23,11 +23,11 @@ namespace Ref.Core
         {
             get
             {
-                return Register[(int)reg].GetValue();
+                return Memory.GetValue((int)reg);
             }
             set
             {
-                Register[(int)reg].SetValue(value);
+                Memory.SetValue((int)reg, value);
             }
         }
 

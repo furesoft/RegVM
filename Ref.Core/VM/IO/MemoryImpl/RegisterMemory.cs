@@ -5,9 +5,19 @@ namespace Ref.Core.VM.IO.MemoryImpl
 {
     internal class RegisterMemory : Memory
     {
+        public override int Length => register.Length * sizeof(int);
+
         public RegisterMemory(Register[] register)
         {
             this.register = register;
+        }
+
+        public override void Clear()
+        {
+            for (int i = 0; i < register.Length; i++)
+            {
+                register[i].SetValue(0);
+            }
         }
 
         public override byte[] GetMemory()
@@ -20,6 +30,16 @@ namespace Ref.Core.VM.IO.MemoryImpl
             }
 
             return result.ToArray();
+        }
+
+        public override int GetValue(int index)
+        {
+            return register[index].GetValue();
+        }
+
+        public override void SetValue(int index, int value)
+        {
+            register[index].SetValue(value);
         }
 
         private Register[] register;
