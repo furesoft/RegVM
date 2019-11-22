@@ -26,8 +26,11 @@ namespace Ref.Core
 
         public int Pop()
         {
+            var pos = Position--;
             Length--;
-            return _data[Position--].Value;
+            _data[pos + 1] = null;
+
+            return _data[pos].Value;
         }
 
         public void Push(int value)

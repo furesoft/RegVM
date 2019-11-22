@@ -1,8 +1,7 @@
-﻿using Ref.Core.VM.IO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Ref.Core.VM.Core.MemoryImpl
+namespace Ref.Core.VM.IO.MemoryImpl
 {
     internal class RegisterMemory : Memory
     {
