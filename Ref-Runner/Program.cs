@@ -9,7 +9,7 @@ namespace RefVM_Runner
         private static void Main(string[] args)
         {
             var filename = args.First();
-            var vm = new VM();
+            var vm = new VirtualMachine();
 
             vm.Run(File.ReadAllBytes(filename));
         }

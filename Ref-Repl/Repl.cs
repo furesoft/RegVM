@@ -8,7 +8,7 @@ namespace Ref_Repl
     {
         public Repl()
         {
-            vm = new VM();
+            vm = new VirtualMachine();
         }
 
         public void Run()
@@ -104,7 +104,7 @@ namespace Ref_Repl
             }
         }
 
-        private VM vm;
+        private VirtualMachine vm;
 
         private byte[] ParseHex(string src)
         {

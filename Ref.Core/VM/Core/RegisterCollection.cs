@@ -6,9 +6,9 @@ namespace Ref.Core
     {
         public int Length => Enum.GetNames(typeof(Registers)).Length;
         public Register[] Register { get; set; }
-        public VM Vm { get; private set; }
+        public VirtualMachine Vm { get; private set; }
 
-        public RegisterCollection(VM vm)
+        public RegisterCollection(VirtualMachine vm)
         {
             this.Vm = vm;
 

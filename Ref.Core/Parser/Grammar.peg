@@ -1,4 +1,6 @@
-﻿@namespace Ref.Core
+﻿@namespace Ref.Core.Parser
 @classname AsmParser
 
 @start CompilationUnit
+
+CompilationUnit<AsmFile> = "hello" {AsmFile.Create()}

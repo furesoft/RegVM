@@ -6,7 +6,7 @@ namespace Ref.Core
     {
         public Action<int> OnChange;
         public RegisterAccess Access { get; set; }
-        public VM Vm { get; set; }
+        public VirtualMachine Vm { get; set; }
 
         [Flags]
         public enum RegisterAccess { Read, Write, Protected }
@@ -45,6 +45,11 @@ namespace Ref.Core
             {
                 Vm.Register[Registers.ERR] = 1;
             }
+        }
+
+        public override string ToString()
+        {
+            return value.ToString();
         }
 
         private int value;

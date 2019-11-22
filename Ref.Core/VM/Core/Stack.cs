@@ -7,7 +7,7 @@
 
         public Stack(int capacity = 50)
         {
-            _data = new object[capacity];
+            _data = new int?[capacity];
             Position = -1;
         }
 
@@ -20,18 +20,18 @@
             }
         }
 
-        public object Pop()
+        public int Pop()
         {
             Length--;
-            return _data[Position--];
+            return _data[Position--].Value;
         }
 
-        public void Push(object value)
+        public void Push(int value)
         {
             _data[++Position] = value;
             Length++;
         }
 
-        private object[] _data;
+        private int?[] _data;
     }
 }
