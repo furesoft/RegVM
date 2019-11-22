@@ -1,5 +1,6 @@
 ﻿using Ref.Core.VM.IO;
 using Ref.Core.VM.IO.MemoryImpl;
+using System;
 
 namespace Ref.Core
 {
@@ -33,8 +34,14 @@ namespace Ref.Core
 
         public void Push(int value)
         {
-            _data[++Position] = value;
-            Length++;
+            if (Position < _data.Length - 1)
+            {
+                _data[++Position] = value;
+                Length++;
+                return;
+            }
+
+            throw new StackOverflowException();
         }
 
         private int?[] _data;
