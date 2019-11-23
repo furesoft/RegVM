@@ -11,33 +11,6 @@ using System.Threading;
 
 namespace Ref.Core
 {
-    public enum OpCode
-    {
-        MOV,
-        ADD,
-        DIV,
-        MUL,
-        SUB,
-        NOP,
-        JMPR,
-        PRINT,
-        CMP,
-        PUSH,
-        POP,
-        JMP,
-        LOAD,
-        CALL,
-        RET,
-        OUT,
-        IN,
-        PUSHL,
-        JMPE,
-        JMPNE,
-        EQUAL,
-        NEQUAL,
-        INT,
-    }
-
     public class VirtualMachine
     {
         public Dictionary<OpCode, Instruction> Instructions { get; set; } = new Dictionary<OpCode, Instruction>();

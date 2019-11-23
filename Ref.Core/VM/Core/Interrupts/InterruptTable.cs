@@ -14,6 +14,7 @@ namespace Ref.Core.VM.Core.Interrupts
             if (Handlers.ContainsKey(number))
             {
                 Handlers[number].Handle(vm);
+                return;
             }
 
             throw new Exception($"Interrupt {number} has no handler registered");

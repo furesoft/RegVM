@@ -18,8 +18,9 @@ namespace TestConsole
             var loop = ass.MakeLabel();
             ass.Add(OpCode.ADD, (int)Registers.A, (int)Registers.B);
             ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
-            ass.Add(OpCode.PRINT);
+            ass.Add(OpCode.INT, 0x123); // print registers
             ass.Add(OpCode.OUT, 0xABC, 0); //clear console
+            ass.Add(OpCode.INT, 0x123); // print registers
 
             ass.Add(OpCode.PUSHL, 9);
             ass.Add(OpCode.OUT, 0xABC, 2); // change foreground
