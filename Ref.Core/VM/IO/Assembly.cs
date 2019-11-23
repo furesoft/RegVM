@@ -8,7 +8,7 @@ namespace Ref.Core.VM.IO
     {
         public List<AssemblySection> Sections { get; set; } = new List<AssemblySection>();
 
-        public Assembly Load(byte[] raw)
+        public static Assembly Load(byte[] raw)
         {
             var r = new BinaryReader(new MemoryStream(raw));
             var result = new Assembly();
@@ -26,7 +26,7 @@ namespace Ref.Core.VM.IO
                     var rawCount = r.ReadInt32();
                     sect.Raw = r.ReadBytes(rawCount);
 
-                    Sections.Add(sect);
+                    result.Sections.Add(sect);
                 }
             }
             else
@@ -44,5 +44,10 @@ namespace Ref.Core.VM.IO
     {
         public string Name { get; set; }
         public byte[] Raw { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

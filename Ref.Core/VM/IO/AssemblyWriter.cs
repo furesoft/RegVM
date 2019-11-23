@@ -1,13 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Ref.Core.VM.IO
 {
     public class AssemblyWriter
     {
-        public List<AssemblySection> Sections { get; set; }
+        public List<AssemblySection> Sections { get; set; } = new List<AssemblySection>();
+
+        public AssemblySection CreateSection(string name)
+        {
+            var s = new AssemblySection();
+            s.Name = name;
+            Sections.Add(s);
+
+            return s;
+        }
 
         public byte[] Save()
         {
