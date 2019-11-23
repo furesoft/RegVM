@@ -15,13 +15,6 @@ namespace TestConsole
             ass.Add(OpCode.LOAD, (int)Registers.A, 0x2A);
             ass.Add(OpCode.LOAD, (int)Registers.B, 1);
 
-            var loop = ass.MakeLabel();
-            ass.Add(OpCode.ADD, (int)Registers.A, (int)Registers.B);
-            ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
-            ass.Add(OpCode.INT, 0x123); // print registers
-            ass.Add(OpCode.OUT, 0xABC, 0); //clear console
-            ass.Add(OpCode.INT, 0x123); // print registers
-
             ass.Add(OpCode.PUSHL, 9);
             ass.Add(OpCode.OUT, 0xABC, 2); // change foreground
 
@@ -34,10 +27,19 @@ namespace TestConsole
             ass.Add(OpCode.PUSHL, ':');
             ass.Add(OpCode.OUT, 0xABC, 1); // write : to console
 
+            var inputloop = ass.MakeLabel();
             ass.Add(OpCode.IN, 0xABC1, (int)Registers.C); // wait for input char
+            ass.Add(OpCode.JMP, inputloop);
 
             ass.Add(OpCode.PUSHL, '\n'); // write new line to console
             ass.Add(OpCode.OUT, 0xABC, 1);
+
+            var loop = ass.MakeLabel();
+            ass.Add(OpCode.ADD, (int)Registers.A, (int)Registers.B);
+            ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
+            ass.Add(OpCode.INT, 0x123); // print registers
+            ass.Add(OpCode.OUT, 0xABC, 0); //clear console
+            ass.Add(OpCode.JMP, loop);
 
             ass.Add(OpCode.OUT, 0xABC, 4); // Reset colors
 
