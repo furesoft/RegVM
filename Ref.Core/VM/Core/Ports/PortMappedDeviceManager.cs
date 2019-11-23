@@ -10,11 +10,11 @@ namespace Ref.Core.VM.Core.Ports
         public static Dictionary<int, IPortMappedDevice> ReadPorts { get; set; } = new Dictionary<int, IPortMappedDevice>();
         public static Dictionary<int, IPortMappedDevice> WritePorts { get; set; } = new Dictionary<int, IPortMappedDevice>();
 
-        public static void Read(int port, Register reg)
+        public static void Read(int port, Registers reg, VirtualMachine vm)
         {
             if (ReadPorts.ContainsKey(port))
             {
-                ReadPorts[port].HandleRead(port, reg);
+                ReadPorts[port].HandleRead(port, reg, vm);
                 return;
             }
 
@@ -45,11 +45,11 @@ namespace Ref.Core.VM.Core.Ports
             }
         }
 
-        public static void Write(int port, int value, Stack stack)
+        public static void Write(int port, int value, VirtualMachine vm)
         {
             if (WritePorts.ContainsKey(port))
             {
-                WritePorts[port].HandleWrite(port, value, stack);
+                WritePorts[port].HandleWrite(port, value, vm);
                 return;
             }
 

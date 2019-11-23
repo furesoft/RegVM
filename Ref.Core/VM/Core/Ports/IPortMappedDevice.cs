@@ -2,8 +2,8 @@
 {
     public interface IPortMappedDevice
     {
-        void HandleRead(int addr, Register reg);
+        void HandleRead(int port, Registers reg, VirtualMachine vm);
 
-        void HandleWrite(int addr, int value, Stack stack);
+        void HandleWrite(int port, int value, VirtualMachine vm);
     }
 }

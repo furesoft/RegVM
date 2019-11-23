@@ -108,6 +108,7 @@ namespace Ref.Core
 
                 case nameof(Register):
                     result = Register.Memory;
+                    n = Register.Length * sizeof(int);
                     break;
 
                 default:
@@ -134,15 +135,15 @@ namespace Ref.Core
                     var out_addr = (int)cmd[0];
                     var out_value = (int)cmd[1];
 
-                    PortMappedDeviceManager.Write(out_addr, out_value, Stack);
+                    PortMappedDeviceManager.Write(out_addr, out_value, this);
 
                     break;
 
                 case OpCode.IN:
                     var in_addr = (int)cmd[0];
-                    var in_reg = (int)cmd[1];
+                    var in_reg = (Registers)(int)cmd[1];
 
-                    PortMappedDeviceManager.Read(in_addr, Register[in_reg]);
+                    PortMappedDeviceManager.Read(in_addr, in_reg, this);
 
                     break;
 
