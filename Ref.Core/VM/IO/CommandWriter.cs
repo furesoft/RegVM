@@ -1,9 +1,5 @@
-﻿using Ref.Core.Parser;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace Ref.Core.VM.IO
 {
@@ -13,6 +9,11 @@ namespace Ref.Core.VM.IO
         {
             _ms = new MemoryStream();
             _bw = new BinaryWriter(_ms);
+        }
+
+        public void Add(OpCode op, Registers reg, int value)
+        {
+            Add(op, (int)reg, value);
         }
 
         public void Add(OpCode op, params int[] args)

@@ -19,19 +19,19 @@ namespace TestConsole
             ass.Add(OpCode.ADD, (int)Registers.A, (int)Registers.B);
             ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
             ass.Add(OpCode.PRINT);
-            ass.Add(OpCode.OUT, 0xABC, 0);
+            ass.Add(OpCode.OUT, 0xABC, 0); //clear console
 
             ass.Add(OpCode.PUSHL, 'e');
-            ass.Add(OpCode.OUT, 0xABC, 1);
+            ass.Add(OpCode.OUT, 0xABC, 1); // write e to console
 
             ass.Add(OpCode.PUSHL, ':');
-            ass.Add(OpCode.OUT, 0xABC, 1);
+            ass.Add(OpCode.OUT, 0xABC, 1); // write : to console
 
-            ass.Add(OpCode.IN, 0xABC1, (int)Registers.C);
+            ass.Add(OpCode.IN, 0xABC1, (int)Registers.C); // wait for input char
             ass.Add(OpCode.PUSH, (int)Registers.C);
-            ass.Add(OpCode.OUT, 0xABC, 1);
+            ass.Add(OpCode.OUT, 0xABC, 1); // write input char to console
 
-            ass.Add(OpCode.PUSHL, '\n');
+            ass.Add(OpCode.PUSHL, '\n'); // write new line to console
             ass.Add(OpCode.OUT, 0xABC, 1);
 
             //.Add(OpCode.CALL, loop);
