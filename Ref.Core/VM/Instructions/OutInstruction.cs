@@ -15,7 +15,7 @@ namespace Ref.Core.VM.Instructions
             var out_addr = (int)cmd[0];
             var out_value = (int)cmd[1];
 
-            PortMappedDeviceManager.Write(out_addr, out_value, this);
+            PortMappedDeviceManager.Write(out_addr, out_value, vm);
         }
     }
 }

@@ -132,149 +132,13 @@ namespace Ref.Core
 
         private bool RunInstruction(AsmCommand cmd)
         {
-            switch (cmd.OpCode)
+            if (Instructions.ContainsKey(cmd.OpCode))
             {
-                case OpCode.LOAD:
-                    var reg = (int)cmd[0];
-                    var val = cmd[1];
-
-                    Register[(Registers)reg] = (int)val;
-
-                    break;
-
-                case OpCode.INT:
-                    var interrupt = (int)cmd[0];
-                    InterruptTable.Interrupt(interrupt, this);
-
-                    break;
-
-                case OpCode.OUT:
-                    var out_addr = (int)cmd[0];
-                    var out_value = (int)cmd[1];
-
-                    PortMappedDeviceManager.Write(out_addr, out_value, this);
-
-                    break;
-
-                case OpCode.IN:
-                    var in_addr = (int)cmd[0];
-                    var in_reg = (Registers)(int)cmd[1];
-
-                    PortMappedDeviceManager.Read(in_addr, in_reg, this);
-
-                    break;
-
-                case OpCode.MOV:
-                    var fromReg = (Registers)(int)cmd[0];
-                    var toReg = (Registers)(int)cmd[1];
-
-                    Register[toReg] = Register[fromReg];
-
-                    break;
-
-                case OpCode.JMP:
-                    var addr = (int)cmd[0];
-                    Register[Registers.IPR] = addr;
-
-                    break;
-
-                case OpCode.JMPE:
-                    var e_addr = (int)cmd[0];
-                    if (Register[Registers.BRR] != 0)
-                    {
-                        Register[Registers.IPR] = e_addr;
-                    }
-                    break;
-
-                case OpCode.EQUAL:
-                    var eq_f = (Registers)(int)cmd[0];
-                    var eq_s = (Registers)(int)cmd[1];
-
-                    Register[Registers.BRR] = eq_f == eq_s ? 1 : 0;
-
-                    break;
-
-                case OpCode.NEQUAL:
-                    var neq_f = (Registers)(int)cmd[0];
-                    var neq_s = (Registers)(int)cmd[1];
-
-                    Register[Registers.BRR] = neq_f != neq_s ? 1 : 0;
-
-                    break;
-
-                case OpCode.JMPNE:
-                    var ne_addr = (int)cmd[0];
-                    if (Register[Registers.BRR] == 0)
-                    {
-                        Register[Registers.IPR] = ne_addr;
-                    }
-
-                    break;
-
-                case OpCode.JMPR:
-                    var jmp_index = (int)cmd[0];
-
-                    if (jmp_index < 0)
-                    {
-                        Register[Registers.IPR] -= jmp_index;
-                    }
-                    else
-                    {
-                        Register[Registers.IPR] += jmp_index;
-                    }
-
-                    break;
-
-                case OpCode.ADD:
-                    var add_left = Register[(Registers)(int)cmd[0]];
-                    var add_right = Register[(Registers)(int)cmd[1]];
-
-                    Register[Registers.ACC] = add_left + add_right;
-
-                    break;
-
-                case OpCode.CALL:
-                    var cll = (int)cmd[0];
-                    Stack.PushRegisters(Register);
-                    Register[Registers.IPR] = cll;
-
-                    break;
-
-                case OpCode.RET:
-                    Stack.PopRegisters(Register);
-                    break;
-
-                case OpCode.PRINT:
-                    Thread.Sleep(1500); //for demo propose only, should be removed
-                    Console.Clear();
-
-                    Utils.PrintRegisters(Register);
-                    break;
-
-                case OpCode.PUSH:
-                    var from = (int)cmd[0];
-                    Stack.Push(Register[(Registers)from]);
-
-                    break;
-
-                case OpCode.PUSHL:
-                    var push_lit = (int)cmd[0];
-                    Stack.Push(push_lit);
-
-                    break;
-
-                case OpCode.POP:
-                    var to = cmd[0];
-                    var rval = Stack.Pop();
-
-                    Register[(Registers)to] = rval;
-                    break;
-
-                case OpCode.NOP:
-                    break;
-
-                default:
-                    return false;
+                Instructions[cmd.OpCode].Invoke(cmd, this);
+            }
+            else
+            {
+                throw new Exception($"Instructon '{Enum.GetName(typeof(OpCode), cmd.OpCode)}' not found");
             }
 
             return true;
@@ -284,7 +148,7 @@ namespace Ref.Core
         {
             foreach (var t in System.Reflection.Assembly.GetExecutingAssembly().GetTypes())
             {
-                if (t.BaseType.Name == nameof(Instruction))
+                if (t?.BaseType?.Name == nameof(Instruction))
                 {
                     var instance = (Instruction)Activator.CreateInstance(t);
 

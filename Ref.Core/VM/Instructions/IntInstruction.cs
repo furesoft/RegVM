@@ -13,7 +13,7 @@ namespace Ref.Core.VM.Instructions
         public override void Invoke(AsmCommand cmd, VirtualMachine vm)
         {
             var interrupt = (int)cmd[0];
-            InterruptTable.Interrupt(interrupt, this);
+            InterruptTable.Interrupt(interrupt, vm);
         }
     }
 }

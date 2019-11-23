@@ -7,7 +7,7 @@ namespace Ref.Core.VM.Instructions
 {
     internal class EqualInstruction : Instruction
     {
-        public override OpCode OpCode => throw new NotImplementedException();
+        public override OpCode OpCode => OpCode.EQUAL;
 
         public override void Invoke(AsmCommand cmd, VirtualMachine vm)
         {
