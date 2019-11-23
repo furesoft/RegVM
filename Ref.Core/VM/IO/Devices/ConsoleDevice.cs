@@ -31,6 +31,23 @@ namespace Ref.Core.VM.IO.Devices
                 case 1:
                     Console.Write((char)vm.Stack.Pop());
                     break;
+
+                case 2:
+                    Console.ForegroundColor = (ConsoleColor)vm.Stack.Pop();
+                    break;
+
+                case 3:
+                    Console.BackgroundColor = (ConsoleColor)vm.Stack.Pop();
+                    break;
+
+                case 4:
+                    Console.ResetColor();
+
+                    break;
+
+                case 5:
+                    Console.Beep(vm.Stack.Pop(), vm.Stack.Pop());
+                    break;
             }
         }
     }

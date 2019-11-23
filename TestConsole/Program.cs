@@ -21,6 +21,12 @@ namespace TestConsole
             ass.Add(OpCode.PRINT);
             ass.Add(OpCode.OUT, 0xABC, 0); //clear console
 
+            ass.Add(OpCode.PUSHL, 9);
+            ass.Add(OpCode.OUT, 0xABC, 2); // change foreground
+
+            ass.Add(OpCode.PUSHL, 10);
+            ass.Add(OpCode.OUT, 0xABC, 3); // change background
+
             ass.Add(OpCode.PUSHL, 'e');
             ass.Add(OpCode.OUT, 0xABC, 1); // write e to console
 
@@ -34,6 +40,12 @@ namespace TestConsole
             ass.Add(OpCode.PUSHL, '\n'); // write new line to console
             ass.Add(OpCode.OUT, 0xABC, 1);
 
+            ass.Add(OpCode.OUT, 0xABC, 4); // Reset colors
+
+            //Beep
+            ass.Add(OpCode.PUSHL, 15000);
+            ass.Add(OpCode.PUSHL, 1500);
+            ass.Add(OpCode.OUT, 0xABC, 5);
             //.Add(OpCode.CALL, loop);
 
             var vm = new VirtualMachine();
