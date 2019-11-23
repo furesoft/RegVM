@@ -1,5 +1,6 @@
 ﻿using Ref.Core.Parser;
 using Ref.Core.VM.Core;
+using Ref.Core.VM.Core.Ports;
 using Ref.Core.VM.IO;
 using System;
 using System.IO;
@@ -24,6 +25,8 @@ namespace Ref.Core
         LOAD,
         CALL,
         RET,
+        OUT,
+        IN,
     }
 
     public class VirtualMachine
@@ -36,6 +39,8 @@ namespace Ref.Core
         {
             Register = new RegisterCollection(this);
             Stack = new Stack();
+
+            PortMappedDeviceManager.ScanDevices();
 
             ErrorTable.Add(0x1, "The Register is protected"); //ToDo: add ErrorAttribute to Instructions
         }
@@ -117,16 +122,32 @@ namespace Ref.Core
             switch (cmd.OpCode)
             {
                 case OpCode.LOAD:
-                    var reg = cmd[0];
+                    var reg = (int)cmd[0];
                     var val = cmd[1];
 
                     Register[(Registers)reg] = (int)val;
 
                     break;
 
+                case OpCode.OUT:
+                    var out_addr = (int)cmd[0];
+                    var out_value = (int)cmd[1];
+
+                    PortMappedDeviceManager.Write(out_addr, out_value, Stack);
+
+                    break;
+
+                case OpCode.IN:
+                    var in_addr = (int)cmd[0];
+                    var in_reg = (int)cmd[1];
+
+                    PortMappedDeviceManager.Read(in_addr, Register[in_reg]);
+
+                    break;
+
                 case OpCode.MOV:
-                    var fromReg = (Registers)cmd[0];
-                    var toReg = (Registers)cmd[1];
+                    var fromReg = (Registers)(int)cmd[0];
+                    var toReg = (Registers)(int)cmd[1];
 
                     Register[toReg] = Register[fromReg];
 
@@ -153,8 +174,8 @@ namespace Ref.Core
                     break;
 
                 case OpCode.ADD:
-                    var add_left = Register[(Registers)cmd[0]];
-                    var add_right = Register[(Registers)cmd[1]];
+                    var add_left = Register[(Registers)(int)cmd[0]];
+                    var add_right = Register[(Registers)(int)cmd[1]];
 
                     Register[Registers.ACC] = add_left + add_right;
 
@@ -179,7 +200,7 @@ namespace Ref.Core
                     break;
 
                 case OpCode.PUSH:
-                    var from = cmd[0];
+                    var from = (int)cmd[0];
                     Stack.Push(Register[(Registers)from]);
 
                     break;
