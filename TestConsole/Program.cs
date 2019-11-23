@@ -34,6 +34,11 @@ namespace TestConsole
             ass.Add(OpCode.OUT, 0xABC, 1); // write : to console
 
             ass.Add(OpCode.IN, 0xABC1, (int)Registers.C); // wait for input char
+
+            // if input is a
+            ass.Add(OpCode.LOAD, (int)Registers.B, 65);
+            ass.Add(OpCode.EQUAL, (int)Registers.B, (int)Registers.C);
+            ass.Add(OpCode.JMPNE, 0x100);
             ass.Add(OpCode.PUSH, (int)Registers.C);
             ass.Add(OpCode.OUT, 0xABC, 1); // write input char to console
 

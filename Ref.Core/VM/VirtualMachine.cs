@@ -30,6 +30,8 @@ namespace Ref.Core
         PUSHL,
         JMPE,
         JMPNE,
+        EQUAL,
+        NEQUAL,
     }
 
     public class VirtualMachine
@@ -169,6 +171,21 @@ namespace Ref.Core
                     {
                         Register[Registers.IPR] = e_addr;
                     }
+                    break;
+
+                case OpCode.EQUAL:
+                    var eq_f = (Registers)(int)cmd[0];
+                    var eq_s = (Registers)(int)cmd[1];
+
+                    Register[Registers.BRR] = eq_f == eq_s ? 1 : 0;
+
+                    break;
+
+                case OpCode.NEQUAL:
+                    var neq_f = (Registers)(int)cmd[0];
+                    var neq_s = (Registers)(int)cmd[1];
+
+                    Register[Registers.BRR] = neq_f != neq_s ? 1 : 0;
 
                     break;
 
