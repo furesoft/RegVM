@@ -18,13 +18,11 @@ namespace TestConsole
             var loop = ass.MakeLabel();
             ass.Add(OpCode.ADD, (int)Registers.A, (int)Registers.B);
             ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
-            ass.Add(OpCode.LOAD, (int)Registers.D, 65);
             ass.Add(OpCode.PRINT);
-            ass.Add(OpCode.PUSH, (int)Registers.D);
+            ass.Add(OpCode.PUSHL, 65);
             ass.Add(OpCode.OUT, 0xABC, 0);
             ass.Add(OpCode.OUT, 0xABC, 1);
-            ass.Add(OpCode.LOAD, (int)Registers.D, (int)'\n');
-            ass.Add(OpCode.PUSH, (int)Registers.D);
+            ass.Add(OpCode.PUSHL, '\n');
             ass.Add(OpCode.OUT, 0xABC, 1);
             //.Add(OpCode.CALL, loop);
 

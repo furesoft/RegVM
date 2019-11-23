@@ -27,6 +27,7 @@ namespace Ref.Core
         RET,
         OUT,
         IN,
+        PUSHL,
     }
 
     public class VirtualMachine
@@ -202,6 +203,12 @@ namespace Ref.Core
                 case OpCode.PUSH:
                     var from = (int)cmd[0];
                     Stack.Push(Register[(Registers)from]);
+
+                    break;
+
+                case OpCode.PUSHL:
+                    var push_lit = (int)cmd[0];
+                    Stack.Push(push_lit);
 
                     break;
 
