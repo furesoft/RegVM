@@ -4,14 +4,23 @@ using System;
 namespace Ref.Core.VM.IO.Devices
 {
     [Port(0xABC, PortAccess.Write)] //Control Port
+    [Port(0xABC1, PortAccess.Read)] // Data Access Port
     public class ConsoleDevice : IPortMappedDevice
     {
-        public void HandleRead(int addr, Register reg)
+        public void HandleRead(int port, Registers reg, VirtualMachine vm)
         {
-            throw new System.NotImplementedException();
+            int result = 0;
+            switch (port)
+            {
+                case 0xABC1:
+                    result = Console.Read();
+                    break;
+            }
+
+            vm.Register[reg] = result;
         }
 
-        public void HandleWrite(int addr, int controlVal, Stack stack)
+        public void HandleWrite(int addr, int controlVal, VirtualMachine vm)
         {
             switch (controlVal)
             {
@@ -20,7 +29,7 @@ namespace Ref.Core.VM.IO.Devices
                     break;
 
                 case 1:
-                    Console.Write((char)stack.Pop());
+                    Console.Write((char)vm.Stack.Pop());
                     break;
             }
         }
