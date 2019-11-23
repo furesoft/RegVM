@@ -1,5 +1,6 @@
 ﻿using Ref.Core.Parser;
 using Ref.Core.VM.Core;
+using Ref.Core.VM.Core.Interrupts;
 using Ref.Core.VM.Core.Ports;
 using Ref.Core.VM.IO;
 using System;
@@ -32,6 +33,7 @@ namespace Ref.Core
         JMPNE,
         EQUAL,
         NEQUAL,
+        INT,
     }
 
     public class VirtualMachine
@@ -46,6 +48,7 @@ namespace Ref.Core
             Stack = new Stack();
 
             PortMappedDeviceManager.ScanDevices();
+            InterruptTable.ScanHandlers();
 
             ErrorTable.Add(0x1, "The Register is protected"); //ToDo: add ErrorAttribute to Instructions
         }
@@ -132,6 +135,12 @@ namespace Ref.Core
                     var val = cmd[1];
 
                     Register[(Registers)reg] = (int)val;
+
+                    break;
+
+                case OpCode.INT:
+                    var interrupt = (int)cmd[0];
+                    InterruptTable.Interrupt(interrupt, this);
 
                     break;
 
