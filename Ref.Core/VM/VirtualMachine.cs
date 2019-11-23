@@ -1,9 +1,11 @@
 ﻿using Ref.Core.Parser;
+using Ref.Core.VM;
 using Ref.Core.VM.Core;
 using Ref.Core.VM.Core.Interrupts;
 using Ref.Core.VM.Core.Ports;
 using Ref.Core.VM.IO;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
@@ -38,6 +40,7 @@ namespace Ref.Core
 
     public class VirtualMachine
     {
+        public Dictionary<OpCode, Instruction> Instructions { get; set; } = new Dictionary<OpCode, Instruction>();
         public RegisterCollection Register { get; set; }
 
         public Stack Stack { get; set; }
@@ -47,6 +50,7 @@ namespace Ref.Core
             Register = new RegisterCollection(this);
             Stack = new Stack();
 
+            ScanInstructions();
             PortMappedDeviceManager.ScanDevices();
             InterruptTable.ScanHandlers();
 
@@ -274,6 +278,19 @@ namespace Ref.Core
             }
 
             return true;
+        }
+
+        private void ScanInstructions()
+        {
+            foreach (var t in System.Reflection.Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (t.BaseType.Name == nameof(Instruction))
+                {
+                    var instance = (Instruction)Activator.CreateInstance(t);
+
+                    Instructions.Add(instance.OpCode, instance);
+                }
+            }
         }
     }
 }
