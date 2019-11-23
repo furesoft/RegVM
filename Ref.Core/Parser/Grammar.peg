@@ -5,7 +5,7 @@
 
 CompilationUnit<AsmFile> = "hello" {AsmFile.Create()}
 
-LabelDefinition<LabelDefintionNode> = _o name:identifier ":" _o body:(("\t" singleCommand)*) {SyntaxNode.CreateLabel(name, body)}
+LabelDefinition<LabelDefintionNode> = _o name:identifier ":" _o body:((singleCommand)*) {SyntaxNode.CreateLabel(name, body)}
 singleCommand<AsmCommand> = _o op:identifier args:args? {SyntaxNode.CreateCommand(op, args)}
 
 args<AsmCommandArg> = registerArg / lbl:identifier {SyntaxNode.CreateLabelCall(lbl)} / numberLiteral
