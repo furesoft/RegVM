@@ -28,6 +28,8 @@ namespace Ref.Core
         OUT,
         IN,
         PUSHL,
+        JMPE,
+        JMPNE,
     }
 
     public class VirtualMachine
@@ -158,6 +160,24 @@ namespace Ref.Core
                 case OpCode.JMP:
                     var addr = (int)cmd[0];
                     Register[Registers.IPR] = addr;
+
+                    break;
+
+                case OpCode.JMPE:
+                    var e_addr = (int)cmd[0];
+                    if (Register[Registers.BRR] != 0)
+                    {
+                        Register[Registers.IPR] = e_addr;
+                    }
+
+                    break;
+
+                case OpCode.JMPNE:
+                    var ne_addr = (int)cmd[0];
+                    if (Register[Registers.BRR] == 0)
+                    {
+                        Register[Registers.IPR] = ne_addr;
+                    }
 
                     break;
 
