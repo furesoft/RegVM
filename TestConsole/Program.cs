@@ -9,6 +9,13 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
+            var file = new AssemblyWriter();
+            var meta = file.CreateSection(".meta");
+            var typeinfo = file.CreateSection(".type");
+            var debuginfo = file.CreateSection(".debug");
+            var ro = file.CreateSection(".ro");
+            var data = file.CreateSection(".data");
+
             var ass = new CommandWriter();
 
             //inc-method at 0
@@ -29,7 +36,7 @@ namespace TestConsole
 
             var inputloop = ass.MakeLabel();
             ass.Add(OpCode.IN, 0xABC1, (int)Registers.C); // wait for input char
-            ass.Add(OpCode.JMP, inputloop);
+                                                          // ass.Add(OpCode.JMP, inputloop);
 
             ass.Add(OpCode.PUSHL, '\n'); // write new line to console
             ass.Add(OpCode.OUT, 0xABC, 1);
@@ -39,7 +46,7 @@ namespace TestConsole
             ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
             ass.Add(OpCode.INT, 0x123); // print registers
             ass.Add(OpCode.OUT, 0xABC, 0); //clear console
-            ass.Add(OpCode.JMP, loop);
+            //ass.Add(OpCode.JMP, loop);
 
             ass.Add(OpCode.OUT, 0xABC, 4); // Reset colors
 
@@ -51,6 +58,8 @@ namespace TestConsole
 
             var vm = new VirtualMachine();
             vm.Run(ass.Save(), 0);
+
+            data.Raw = ass.Save();
 
             Console.WriteLine("Register: " + vm.ViewMemoryOf<Register>().ToHex());
             Console.WriteLine("Stack: " + vm.ViewMemoryOf<Stack>().ToHex());
