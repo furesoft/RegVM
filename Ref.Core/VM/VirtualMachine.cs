@@ -13,9 +13,9 @@ namespace Ref.Core
 {
     public class VirtualMachine
     {
+        public Debugger Debugger { get; set; } = new Debugger();
         public Dictionary<OpCode, Instruction> Instructions { get; set; } = new Dictionary<OpCode, Instruction>();
         public RegisterCollection Register { get; set; }
-
         public Stack Stack { get; set; }
 
         public VirtualMachine()
@@ -48,9 +48,12 @@ namespace Ref.Core
                 cmd.Args.Add(arg);
             }
 
-            if (!RunInstruction(cmd))
+            if (!Debugger.HasBreakPoint(Register[Registers.IPR]))
             {
-                Register[Registers.ERR] = 1;
+                if (!RunInstruction(cmd))
+                {
+                    Register[Registers.ERR] = 1;
+                }
             }
         }
 
