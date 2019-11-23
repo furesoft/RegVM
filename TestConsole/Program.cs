@@ -19,19 +19,25 @@ namespace TestConsole
             ass.Add(OpCode.ADD, (int)Registers.A, (int)Registers.B);
             ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
             ass.Add(OpCode.PRINT);
-            ass.Add(OpCode.PUSHL, 65);
             ass.Add(OpCode.OUT, 0xABC, 0);
+
+            ass.Add(OpCode.PUSHL, 'e');
             ass.Add(OpCode.OUT, 0xABC, 1);
+
+            ass.Add(OpCode.PUSHL, ':');
+            ass.Add(OpCode.OUT, 0xABC, 1);
+
+            ass.Add(OpCode.IN, 0xABC1, (int)Registers.C);
+            ass.Add(OpCode.PUSH, (int)Registers.C);
+            ass.Add(OpCode.OUT, 0xABC, 1);
+
             ass.Add(OpCode.PUSHL, '\n');
             ass.Add(OpCode.OUT, 0xABC, 1);
+
             //.Add(OpCode.CALL, loop);
 
             var vm = new VirtualMachine();
             vm.Run(ass.Save(), 0);
-
-            vm.Stack.PushRegisters(vm.Register);
-            vm.Register.ClearRegister(Registers.A);
-            vm.Stack.PopRegisters(vm.Register);
 
             Console.WriteLine("Register: " + vm.ViewMemoryOf<Register>().ToHex());
             Console.WriteLine("Stack: " + vm.ViewMemoryOf<Stack>().ToHex());
