@@ -11,6 +11,7 @@ using System.Threading;
 
 namespace Ref.Core
 {
+    //ToDo: load data from .ro section into register or on top of stack
     public class VirtualMachine
     {
         public Debugger Debugger { get; set; } = new Debugger();

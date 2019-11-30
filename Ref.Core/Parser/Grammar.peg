@@ -6,9 +6,9 @@
 CompilationUnit<AsmFile> = "hello" {AsmFile.Create()}
 
 LabelDefinition<LabelDefintionNode> = _o name:identifier ":" _o body:((singleCommand)*) {SyntaxNode.CreateLabel(name, body)}
-singleCommand<AsmCommand> = _o op:identifier args:args? {SyntaxNode.CreateCommand(op, args)}
+singleCommand<AsmCommand> = _o op:identifier _ args:args? {SyntaxNode.CreateCommand(op, args)}
 
-args<AsmCommandArg> = registerArg / lbl:identifier {SyntaxNode.CreateLabelCall(lbl)} / numberLiteral
+args<AsmCommandArg> = registerArg / lbl:identifier {SyntaxNode.CreateArg(lbl)} / numberLiteral
 registerArg<AsmCommandArg> = "$" name:identifier {SyntaxNode.CreateRegister(name)}
 
 identifier = id:("" ([a-zA-Z_][a-zA-Z_0-9]*)) {id}
