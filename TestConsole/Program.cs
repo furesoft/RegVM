@@ -24,6 +24,7 @@ namespace TestConsole
             ass.Add(OpCode.LOAD, (int)Registers.A, 0x2A);
             ass.Add(OpCode.LOAD, (int)Registers.B, 1);
             ass.Add(OpCode.LOADRO, 0x0, (int)Registers.D);
+            ass.Add(OpCode.PUSHRO, 0x0);
 
             ass.Add(OpCode.PUSHL, 9);
             ass.Add(OpCode.OUT, 0xABC, 2); // change foreground

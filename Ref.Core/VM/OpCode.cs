@@ -2,13 +2,19 @@
 {
     public enum OpCode
     {
+        INC,
+        DEC,
+
         MOV,
+
         LOADRO,
         PUSHRO,
+
         ADD,
         DIV,
         MUL,
         SUB,
+
         NOP,
         JMPR,
         CMP,
