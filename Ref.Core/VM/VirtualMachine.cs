@@ -1,26 +1,25 @@
 ﻿using Ref.Core.Parser;
 using Ref.Core.VM;
-using Ref.Core.VM.Core;
 using Ref.Core.VM.Core.Interrupts;
 using Ref.Core.VM.Core.Ports;
 using Ref.Core.VM.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 
 namespace Ref.Core
 {
-    //ToDo: load data from .ro section into register or on top of stack
     public class VirtualMachine
     {
+        public Assembly Assembly { get; set; }
         public Debugger Debugger { get; set; } = new Debugger();
         public Dictionary<OpCode, Instruction> Instructions { get; set; } = new Dictionary<OpCode, Instruction>();
         public RegisterCollection Register { get; set; }
         public Stack Stack { get; set; }
 
-        public VirtualMachine()
+        public VirtualMachine(Assembly file)
         {
+            Assembly = file;
             Register = new RegisterCollection(this);
             Stack = new Stack();
 
@@ -56,6 +55,11 @@ namespace Ref.Core
                     Register[Registers.ERR] = 1;
                 }
             }
+        }
+
+        public void Run(int startAddress = 0)
+        {
+            Run(Assembly[AssemblySections.Code].Raw, startAddress);
         }
 
         public void Run(byte[] raw, int startAddress = 0)
