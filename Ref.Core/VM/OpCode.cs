@@ -3,6 +3,8 @@
     public enum OpCode
     {
         MOV,
+        LOADRO,
+        PUSHRO,
         ADD,
         DIV,
         MUL,
