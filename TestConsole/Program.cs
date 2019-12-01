@@ -22,7 +22,7 @@ namespace TestConsole
 
             //inc-method at 0
             ass.Add(OpCode.LOAD, (int)Registers.A, 0x2A);
-            ass.Add(OpCode.LOAD, (int)Registers.B, 1);
+            ass.Add(OpCode.INC, (int)Registers.A);
             ass.Add(OpCode.LOADRO, 0x0, (int)Registers.D);
             ass.Add(OpCode.PUSHRO, 0x0);
 
@@ -46,7 +46,6 @@ namespace TestConsole
             ass.Add(OpCode.OUT, 0xABC, 1);
 
             var loop = ass.MakeLabel();
-            ass.Add(OpCode.ADD, (int)Registers.A, (int)Registers.B);
             ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
             ass.Add(OpCode.INT, 0x123); // print registers
             ass.Add(OpCode.OUT, 0xABC, 0); //clear console
