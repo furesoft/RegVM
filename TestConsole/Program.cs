@@ -10,17 +10,20 @@ namespace TestConsole
         private static void Main(string[] args)
         {
             var file = new AssemblyWriter();
-            var meta = file.CreateSection(".meta");
-            var typeinfo = file.CreateSection(".type");
-            var debuginfo = file.CreateSection(".debug");
-            var ro = file.CreateSection(".ro");
-            var data = file.CreateSection(".data");
+            var meta = file.CreateSection(AssemblySections.Metadata);
+            var typeinfo = file.CreateSection(AssemblySections.TypeInfo);
+            var debuginfo = file.CreateSection(AssemblySections.DebugInfo);
+            var ro = file.CreateSection(AssemblySections.ReadOnly);
+            var data = file.CreateSection(AssemblySections.Code);
+
+            ro.Raw = BitConverter.GetBytes(0x2A);
 
             var ass = new CommandWriter();
 
             //inc-method at 0
             ass.Add(OpCode.LOAD, (int)Registers.A, 0x2A);
             ass.Add(OpCode.LOAD, (int)Registers.B, 1);
+            ass.Add(OpCode.LOADRO, 0x0, (int)Registers.D);
 
             ass.Add(OpCode.PUSHL, 9);
             ass.Add(OpCode.OUT, 0xABC, 2); // change foreground
@@ -56,10 +59,11 @@ namespace TestConsole
             ass.Add(OpCode.OUT, 0xABC, 5);
             //.Add(OpCode.CALL, loop);
 
-            var vm = new VirtualMachine();
-            vm.Run(ass.Save(), 0);
-
             data.Raw = ass.Save();
+            var vm = new VirtualMachine(Assembly.Load(file.Save()));
+            vm.Run();
+
+            Utils.PrintRegisters(vm.Register);
 
             Console.WriteLine("Register: " + vm.ViewMemoryOf<Register>().ToHex());
             Console.WriteLine("Stack: " + vm.ViewMemoryOf<Stack>().ToHex());

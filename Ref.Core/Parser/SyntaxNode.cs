@@ -7,6 +7,11 @@ namespace Ref.Core.Parser
 {
     public static class SyntaxNode
     {
+        public static AsmCommandArg CreateArg(string s)
+        {
+            return new AsmCommandArg { Value = int.Parse(s) };
+        }
+
         public static string CreateBinInteger(string bin)
         {
             return Convert.ToInt32(bin.Replace("_", ""), 2).ToString();
