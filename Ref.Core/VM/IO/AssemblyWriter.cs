@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Ref.Core.VM.IO
@@ -7,10 +8,10 @@ namespace Ref.Core.VM.IO
     {
         public List<AssemblySection> Sections { get; set; } = new List<AssemblySection>();
 
-        public AssemblySection CreateSection(string name)
+        public AssemblySection CreateSection(AssemblySections section)
         {
             var s = new AssemblySection();
-            s.Name = name;
+            s.Name = Enum.GetName(typeof(AssemblySections), section);
             Sections.Add(s);
 
             return s;
