@@ -10,7 +10,10 @@ namespace TestConsole
         private static void Main(string[] args)
         {
             var file = new AssemblyWriter();
-            var meta = file.CreateSection(AssemblySections.Metadata);
+            var meta = new AssemblyInfo { Version = "1.0.0.0", ID = Guid.NewGuid() };
+
+            file.AddMeta(meta);
+
             var typeinfo = file.CreateSection(AssemblySections.TypeInfo);
             var debuginfo = file.CreateSection(AssemblySections.DebugInfo);
             var ro = file.CreateSection(AssemblySections.ReadOnly);
@@ -40,7 +43,7 @@ namespace TestConsole
 
             var inputloop = ass.MakeLabel();
             ass.Add(OpCode.IN, 0xABC1, (int)Registers.C); // wait for input char
-                                                          // ass.Add(OpCode.JMP, inputloop);
+            // ass.Add(OpCode.JMP, inputloop);
 
             ass.Add(OpCode.PUSHL, '\n'); // write new line to console
             ass.Add(OpCode.OUT, 0xABC, 1);
