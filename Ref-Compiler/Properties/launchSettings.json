@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ref-Compiler": {
+      "commandName": "Project",
+      "commandLineArgs": "-o \"test.vm\" -i \"test.asm\" -v"
+    }
+  }
+}

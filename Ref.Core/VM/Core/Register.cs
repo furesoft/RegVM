@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace RefVM
+namespace Ref.Core
 {
     public struct Register
     {
         public Action<int> OnChange;
         public RegisterAccess Access { get; set; }
-        public VM Vm { get; set; }
+        public VirtualMachine Vm { get; set; }
 
         [Flags]
         public enum RegisterAccess { Read, Write, Protected }
@@ -38,15 +38,20 @@ namespace RefVM
                 }
                 else
                 {
-                    Vm.Register[(int)Registers.ERR].SetValue(1);
+                    Vm.Register[Registers.ERR] = 1;
                 }
             }
             else
             {
-                Vm.Register[(int)Registers.ERR].SetValue(1);
+                Vm.Register[Registers.ERR] = 1;
             }
         }
 
-        private int value;
+        public override string ToString()
+        {
+            return value.ToString();
+        }
+
+        internal int value;
     }
 }

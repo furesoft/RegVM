@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RefVM
+namespace Ref.Core
 {
     public static class ErrorTable
     {

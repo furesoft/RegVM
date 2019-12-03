@@ -1,10 +1,11 @@
 ﻿using CommandLine;
 using PipelineNet.MiddlewareResolver;
 using PipelineNet.Pipelines;
+using Ref_Compiler.MiddleWare;
 using Serilog;
 using System.Collections.Generic;
 
-namespace RefVm_Compiler
+namespace Ref_Compiler
 {
     internal class Program
     {
@@ -31,7 +32,8 @@ namespace RefVm_Compiler
         {
             var pipeline = new Pipeline<Options>(new ActivatorMiddlewareResolver());
 
-            //ToDo: Implement pipeline middleware
+            pipeline.Add<AstMiddleware>();
+            pipeline.Add<EmitMiddleWare>();
 
             pipeline.Execute(opts);
         }

@@ -1,15 +1,14 @@
-﻿using RefVM.Core;
-using RefVM.Parser;
+﻿using Ref.Core;
 using System;
 using System.Linq;
 
-namespace RefVM
+namespace Ref_Repl
 {
     public class Repl
     {
         public Repl()
         {
-            vm = new VM();
+            vm = new VirtualMachine();
         }
 
         public void Run()
@@ -98,13 +97,14 @@ namespace RefVM
                         }
 
                         vm.Run(writer);
-                        vm.SetValue(Registers.IPR, 0);
+
+                        vm.Register[Registers.IPR] = 0;
                     }
                 }
             }
         }
 
-        private VM vm;
+        private VirtualMachine vm;
 
         private byte[] ParseHex(string src)
         {
