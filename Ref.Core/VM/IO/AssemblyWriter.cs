@@ -9,6 +9,13 @@ namespace Ref.Core.VM.IO
     {
         public List<AssemblySection> Sections { get; set; } = new List<AssemblySection>();
 
+        public void AddCode(CommandWriter cmdBuffer)
+        {
+            var code = cmdBuffer.Save();
+            var section = CreateSection(AssemblySections.Code);
+            section.Raw = code;
+        }
+
         public void AddMeta(AssemblyInfo info)
         {
             var metaSection = CreateSection(AssemblySections.Metadata);
