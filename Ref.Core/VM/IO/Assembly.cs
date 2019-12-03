@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -6,6 +6,7 @@ namespace Ref.Core.VM.IO
 {
     public class Assembly
     {
+        public AssemblyInfo Info => AssemblyInfo.Deserialize(this[AssemblySections.Metadata].Raw);
         public List<AssemblySection> Sections { get; set; } = new List<AssemblySection>();
 
         public AssemblySection this[AssemblySections section]
