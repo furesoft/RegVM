@@ -57,7 +57,7 @@ namespace TestConsole
             ass.Add(OpCode.OUT, 0xABC, 4); // Reset colors
 
             //Beep
-            ass.Add(OpCode.PUSHL, 15000);
+            ass.Add(OpCode.PUSHL, 1500);
             ass.Add(OpCode.PUSHL, 1500);
             ass.Add(OpCode.OUT, 0xABC, 5);
             //.Add(OpCode.CALL, loop);
@@ -68,8 +68,8 @@ namespace TestConsole
 
             Utils.PrintRegisters(vm.Register);
 
-            Console.WriteLine("Register: " + vm.ViewMemoryOf<Register>().ToHex());
-            Console.WriteLine("Stack: " + vm.ViewMemoryOf<Stack>().ToHex());
+            Console.WriteLine("Register: " + vm.ViewMemoryOf<Register>(50).ToHex());
+            Console.WriteLine("Stack: " + vm.ViewMemoryOf<Stack>(50).ToHex());
 
             Console.ReadLine();
         }
