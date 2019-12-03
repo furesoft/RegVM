@@ -1,11 +1,13 @@
 ﻿using System;
+using Ref.Core.VM.IO;
 
 namespace Ref.Core
 {
-    public struct Register
+    public struct Register : IMemory
     {
         public Action<int> OnChange;
         public RegisterAccess Access { get; set; }
+        public Memory Memory => new Memory();
         public VirtualMachine Vm { get; set; }
 
         [Flags]

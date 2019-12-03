@@ -88,6 +88,7 @@ namespace Ref.Core
         }
 
         public byte[] ViewMemoryOf<T>(int n = 10)
+            where T : IMemory
         {
             var memoryType = typeof(T).Name;
             Memory result;

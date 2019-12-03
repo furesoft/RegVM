@@ -4,7 +4,7 @@ using System;
 
 namespace Ref.Core
 {
-    public class Stack
+    public class Stack : IMemory
     {
         public int Length { get; private set; }
         public Memory Memory => new StackMemory(_data);

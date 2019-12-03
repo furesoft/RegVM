@@ -4,7 +4,7 @@ using Ref.Core.VM.IO.MemoryImpl;
 
 namespace Ref.Core
 {
-    public class RegisterCollection
+    public class RegisterCollection : IMemory
     {
         public int Length => Enum.GetNames(typeof(Registers)).Length;
         public Memory Memory => new RegisterMemory(Register);
