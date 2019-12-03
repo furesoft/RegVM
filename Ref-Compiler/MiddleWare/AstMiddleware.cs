@@ -1,5 +1,6 @@
 ﻿using PipelineNet.Middleware;
 using Ref.Core;
+using Ref.Core.Parser;
 using System;
 using System.IO;
 
@@ -10,7 +11,7 @@ namespace Ref_Compiler.MiddleWare
         public void Run(Options parameter, Action<Options> next)
         {
             var source = File.ReadAllText(parameter.Input);
-            var parsed = AssemblySource.Parse(source);
+            var parsed = new AsmParser().Parse(source);
 
             parameter.Tags.Add("AST", parsed);
 

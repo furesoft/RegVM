@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using PipelineNet.Middleware;
-using Ref.Core;
+using Ref.Core.Parser;
+using Ref.Core.VM.IO;
 
 namespace Ref_Compiler.MiddleWare
 {
@@ -9,20 +11,18 @@ namespace Ref_Compiler.MiddleWare
     {
         public void Run(Options parameter, Action<Options> next)
         {
-            var ast = (AssemblySource)parameter.Tags["AST"];
-            var writer = new VmWriter();
+            var ast = (AsmFile)parameter.Tags["AST"];
+            var writer = new AssemblyWriter();
+            var cmdBuffer = new CommandWriter();
 
-            foreach (var line in ast.Lines)
+            foreach (var line in ast.Commands)
             {
-                writer.Write(line.Opcode);
-
-                foreach (var ops in line.Operands)
-                {
-                    writer.Write(ops);
-                }
+                cmdBuffer.Add(line.OpCode, line.Args.Select(_ => (int)_.Value).ToArray());
             }
 
-            File.WriteAllBytes(parameter.Output, writer.ToArray());
+            writer.AddCode(cmdBuffer);
+
+            File.WriteAllBytes(parameter.Output, writer.Save());
 
             next(parameter);
         }
