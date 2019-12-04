@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using Ref.Core.VM.Core;
 using Ref.Core.VM.Core.Ports;
 using Ref.Core.VM.IO.MappedIO;
 
@@ -12,9 +13,11 @@ namespace Ref.Core.VM.IO.Devices
     [AddressRange(0xFFFF, 0xFFFFFF)] // screen buffer range
     public class VideoDevice : IPortMappedDevice, IMemoryMappedDevice
     {
+        public static VideoBuffer Buffer;
+
         public static void CleanUP()
         {
-            ReleaseDC(IntPtr.Zero, desktopPtr);
+            Buffer.Dispose();
         }
 
         public static void Enable_ConsoleMode()
@@ -29,12 +32,9 @@ namespace Ref.Core.VM.IO.Devices
         {
             FreeConsole();
 
-            //draw to screen
-            desktopPtr = GetDC(IntPtr.Zero);
-            graphics = Graphics.FromHdc(desktopPtr);
-
-            //draw background
-            graphics.FillRectangle(Brushes.Black, bgRec);
+            Buffer = VideoBuffer.Create(bgRec);
+            Buffer.Clear();
+            Buffer.Flush();
         }
 
         public static void Write(char c)
@@ -55,7 +55,7 @@ namespace Ref.Core.VM.IO.Devices
             short x = BitConverter.ToInt16(bytes, 0);
             short y = BitConverter.ToInt16(bytes, 2);
 
-            graphics.DrawRectangle(new Pen(Color.FromArgb(value), 1), new Rectangle(new Point(x + bgRec.X, y + bgRec.Y), new Size(10, 10))); //Todo: change to real pixel
+            Buffer[x, y] = value;
         }
 
         public void HandleRead(int port, Registers reg, VirtualMachine vm)
@@ -97,8 +97,7 @@ namespace Ref.Core.VM.IO.Devices
         }
 
         private const uint ATTACH_PARENT_PROCESS = 0x0ffffffff;
-        private static IntPtr desktopPtr;
-        private static Graphics graphics;
+
         private Rectangle bgRec;
 
         [DllImport("kernel32")]
@@ -109,11 +108,5 @@ namespace Ref.Core.VM.IO.Devices
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         private static extern bool FreeConsole();
-
-        [DllImport("User32.dll")]
-        private static extern IntPtr GetDC(IntPtr hwnd);
-
-        [DllImport("User32.dll")]
-        private static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
     }
 }
