@@ -16,8 +16,4 @@
     <PegGrammar Include="Parser\Grammar.peg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="VM\IO\InterruptHandler\" />
-  </ItemGroup>
-
 </Project>
