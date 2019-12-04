@@ -56,7 +56,7 @@ namespace TestConsole
             ass.Add(OpCode.OUT, 0xFFAA, (500 << 16) | ((1500) & 0xffff)); // init size of video
             ass.Add(OpCode.OUT, 0xFFAB, (100 << 16) | ((100) & 0xffff)); // init position of video
             ass.Add(OpCode.OUT, 0xFFAF, 1); // change to videmode
-
+            ass.Add(OpCode.OUT, 0xFFFF + 10, 0xFFFFFF);
             //Beep
             ass.Add(OpCode.PUSHL, 1500);
             ass.Add(OpCode.PUSHL, 1500);

@@ -11,7 +11,7 @@ namespace Ref.Core.VM.IO.Devices
     {
         public void HandleMemoryMapped(int address, int value, VirtualMachine vm)
         {
-            Console.Write((char)value);
+            VideoDevice.Write((char)value);
         }
 
         public void HandleRead(int port, Registers reg, VirtualMachine vm)
