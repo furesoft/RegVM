@@ -43,9 +43,16 @@ namespace Ref.Core.VM.Core
             ReleaseDC(IntPtr.Zero, desktopPtr);
         }
 
+        //ToDo: Enable Property for automatic Flushing to Screen in new Thread
         public void Flush()
         {
-            //ToDo: implement Flush Method on VideoBuffer to draw buffer on screen
+            for (int x = 0; x < _rec.Width; x++)
+            {
+                for (int y = 0; y < _rec.Height; y++)
+                {
+                    _graphics.FillRectangle(new SolidBrush(Color.FromArgb(this[x, y])), new Rectangle(x, y, 1, 1));
+                }
+            }
         }
 
         private static IntPtr desktopPtr;
