@@ -17,6 +17,8 @@ namespace RefVM_Runner
             VideoDevice.Enable_ConsoleMode();
 
             vm.Run();
+
+            VideoDevice.CleanUP();
         }
     }
 }

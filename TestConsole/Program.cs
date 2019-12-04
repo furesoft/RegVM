@@ -53,35 +53,31 @@ namespace TestConsole
             var inputloop = ass.MakeLabel();
             ass.Add(OpCode.IN, 0xABC1, (int)Registers.C); // wait for input char
             // ass.Add(OpCode.JMP, inputloop);
+            ass.Add(OpCode.OUT, 0xFFAA, (500 << 16) | ((1500) & 0xffff)); // init size of video
+            ass.Add(OpCode.OUT, 0xFFAB, (100 << 16) | ((100) & 0xffff)); // init position of video
             ass.Add(OpCode.OUT, 0xFFAF, 1); // change to videmode
-
-            ass.Add(OpCode.PUSHL, '\n'); // write new line to console
-            ass.Add(OpCode.OUT, 0xABC, 1);
-
-            var loop = ass.MakeLabel();
-            ass.Add(OpCode.MOV, (int)Registers.ACC, (int)Registers.A);
-            ass.Add(OpCode.INT, 0x123); // print registers
-            ass.Add(OpCode.OUT, 0xABC, 0); //clear console
-            //ass.Add(OpCode.JMP, loop);
-
-            ass.Add(OpCode.OUT, 0xABC, 4); // Reset colors
 
             //Beep
             ass.Add(OpCode.PUSHL, 1500);
             ass.Add(OpCode.PUSHL, 1500);
             ass.Add(OpCode.OUT, 0xABC, 5);
+
+            var endless = ass.MakeLabel();
+            ass.Add(OpCode.JMP, endless);
             //.Add(OpCode.CALL, loop);
 
             data.Raw = ass.Save();
             var vm = new VirtualMachine(Assembly.Load(file.Save()));
             vm.Run();
 
-            Utils.PrintRegisters(vm.Register);
+            /*Utils.PrintRegisters(vm.Register);
 
             Console.WriteLine("Register: " + vm.ViewMemoryOf<Register>(50).ToHex());
             Console.WriteLine("Stack: " + vm.ViewMemoryOf<Stack>(50).ToHex());
 
             Console.ReadLine();
+            */
+            VideoDevice.CleanUP();
         }
     }
 }
