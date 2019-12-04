@@ -35,7 +35,7 @@ namespace Ref.Core
                 if (!Access.HasFlag(RegisterAccess.Protected))
                 {
                     this.value = value;
-                    //ToDo: call changed event
+
                     OnChange?.Invoke(value);
                 }
                 else

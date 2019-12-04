@@ -66,8 +66,6 @@ namespace Ref.Core
 
         public void Run(byte[] raw, int startAddress = 0)
         {
-            //ToDo: implement custom file format
-
             var r = new BinaryReader(new MemoryStream(raw));
             Register.Subscribe(Registers.IPR, _ =>
             {
