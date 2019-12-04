@@ -1,8 +1,10 @@
 ﻿using System;
+using Ref.Core.VM;
 using Ref.Core.VM.IO;
 
 namespace Ref.Core
 {
+    [Error(0x1, "The Register is protected")]
     public struct Register : IMemory
     {
         public Action<int> OnChange;

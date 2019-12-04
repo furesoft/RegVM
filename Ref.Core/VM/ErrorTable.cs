@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Ref.Core.VM;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Ref.Core
 {
@@ -20,6 +23,19 @@ namespace Ref.Core
             }
 
             return string.Empty;
+        }
+
+        public static void ScanErrors()
+        {
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                var attr = type.GetCustomAttribute<ErrorAttribute>();
+
+                if (attr != null)
+                {
+                    ErrorTable.Add(attr.ErrorCode, attr.Explanation);
+                }
+            }
         }
 
         private static Dictionary<int, string> _data = new Dictionary<int, string>();

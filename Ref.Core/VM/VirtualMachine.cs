@@ -28,8 +28,7 @@ namespace Ref.Core
             PortMappedDeviceManager.ScanDevices();
             InterruptTable.ScanHandlers();
             MemoryMappedDeviceManager.ScanDevices();
-
-            ErrorTable.Add(0x1, "The Register is protected"); //ToDo: add ErrorAttribute to Instructions
+            ErrorTable.ScanErrors();
         }
 
         public void ParseInstruction(BinaryReader r)
