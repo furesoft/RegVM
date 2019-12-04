@@ -1,12 +1,19 @@
 ﻿using Ref.Core.VM.Core.Ports;
+using Ref.Core.VM.IO.MappedIO;
 using System;
 
 namespace Ref.Core.VM.IO.Devices
 {
     [Port(0xABC, PortAccess.Write)] //Control Port
     [Port(0xABC1, PortAccess.Read)] // Data Access Port
-    public class ConsoleDevice : IPortMappedDevice
+    [AddressRange(0xABCD, 0xABCDD)] // address range for console output
+    public class ConsoleDevice : IPortMappedDevice, IMemoryMappedDevice
     {
+        public void HandleMemoryMapped(int address, int value, VirtualMachine vm)
+        {
+            Console.Write((char)value);
+        }
+
         public void HandleRead(int port, Registers reg, VirtualMachine vm)
         {
             int result = 0;

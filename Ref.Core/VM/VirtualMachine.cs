@@ -1,6 +1,7 @@
 ﻿using Ref.Core.Parser;
 using Ref.Core.VM;
 using Ref.Core.VM.Core.Interrupts;
+using Ref.Core.VM.Core.MappedIO;
 using Ref.Core.VM.Core.Ports;
 using Ref.Core.VM.IO;
 using System;
@@ -26,6 +27,7 @@ namespace Ref.Core
             ScanInstructions();
             PortMappedDeviceManager.ScanDevices();
             InterruptTable.ScanHandlers();
+            MemoryMappedDeviceManager.ScanDevices();
 
             ErrorTable.Add(0x1, "The Register is protected"); //ToDo: add ErrorAttribute to Instructions
         }

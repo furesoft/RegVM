@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Ref.Core.Parser;
+﻿using Ref.Core.Parser;
+using Ref.Core.VM.Core.MappedIO;
 using Ref.Core.VM.Core.Ports;
 
 namespace Ref.Core.VM.Instructions
@@ -15,7 +13,14 @@ namespace Ref.Core.VM.Instructions
             var out_addr = (int)cmd[0];
             var out_value = (int)cmd[1];
 
-            PortMappedDeviceManager.Write(out_addr, out_value, vm);
+            if (PortMappedDeviceManager.IsRegistered(out_addr))
+            {
+                PortMappedDeviceManager.Write(out_addr, out_value, vm);
+            }
+            else
+            {
+                MemoryMappedDeviceManager.Write(out_addr, out_value, vm);
+            }
         }
     }
 }

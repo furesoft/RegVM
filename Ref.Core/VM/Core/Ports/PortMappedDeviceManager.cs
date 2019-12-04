@@ -10,6 +10,11 @@ namespace Ref.Core.VM.Core.Ports
         public static Dictionary<int, IPortMappedDevice> ReadPorts { get; set; } = new Dictionary<int, IPortMappedDevice>();
         public static Dictionary<int, IPortMappedDevice> WritePorts { get; set; } = new Dictionary<int, IPortMappedDevice>();
 
+        public static bool IsRegistered(int out_addr)
+        {
+            return ReadPorts.ContainsKey(out_addr) || WritePorts.ContainsKey(out_addr);
+        }
+
         public static void Read(int port, Registers reg, VirtualMachine vm)
         {
             if (ReadPorts.ContainsKey(port))
