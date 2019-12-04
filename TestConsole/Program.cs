@@ -2,6 +2,7 @@
 using Ref.Core.VM.IO;
 using Ref.Core.VM.Core;
 using System;
+using Ref.Core.VM.IO.Devices;
 
 namespace TestConsole
 {
@@ -9,6 +10,8 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
+            VideoDevice.Enable_ConsoleMode();
+
             var file = new AssemblyWriter();
             var meta = new AssemblyInfo { Version = "1.0.0.0", ID = Guid.NewGuid() };
 
@@ -50,6 +53,7 @@ namespace TestConsole
             var inputloop = ass.MakeLabel();
             ass.Add(OpCode.IN, 0xABC1, (int)Registers.C); // wait for input char
             // ass.Add(OpCode.JMP, inputloop);
+            ass.Add(OpCode.OUT, 0xFFAF, 1); // change to videmode
 
             ass.Add(OpCode.PUSHL, '\n'); // write new line to console
             ass.Add(OpCode.OUT, 0xABC, 1);
