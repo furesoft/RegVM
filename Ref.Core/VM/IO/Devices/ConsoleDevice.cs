@@ -36,7 +36,7 @@ namespace Ref.Core.VM.IO.Devices
                     break;
 
                 case 1:
-                    Console.Write((char)vm.Stack.Pop());
+                    VideoDevice.Write((char)vm.Stack.Pop());
                     break;
 
                 case 2:
