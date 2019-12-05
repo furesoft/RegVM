@@ -34,7 +34,7 @@ namespace Ref.Core.VM.IO.Devices
 
             Buffer = VideoBuffer.Create(bgRec);
             Buffer.Clear();
-            Buffer.Flush();
+            Buffer.Flush(); //ToDo: fix deadlock on flush
         }
 
         public static void Write(char c)
@@ -52,8 +52,8 @@ namespace Ref.Core.VM.IO.Devices
         public void HandleMemoryMapped(int address, int value, VirtualMachine vm)
         {
             byte[] bytes = BitConverter.GetBytes(address);
-            short x = BitConverter.ToInt16(bytes, 0);
-            short y = BitConverter.ToInt16(bytes, 2);
+            ushort x = BitConverter.ToUInt16(bytes, 0);
+            ushort y = BitConverter.ToUInt16(bytes, 2);
 
             Buffer[x, y] = value;
         }

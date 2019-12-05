@@ -6,7 +6,7 @@ namespace Ref.Core.VM.IO.Devices
 {
     [Port(0xABC, PortAccess.Write)] //Control Port
     [Port(0xABC1, PortAccess.Read)] // Data Access Port
-    [AddressRange(0xABCD, 0xABCDD)] // address range for console output
+    [AddressRange(0xA, 0xFF)] // address range for console output
     public class ConsoleDevice : IPortMappedDevice, IMemoryMappedDevice
     {
         public void HandleMemoryMapped(int address, int value, VirtualMachine vm)
