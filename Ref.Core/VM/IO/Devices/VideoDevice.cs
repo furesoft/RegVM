@@ -76,6 +76,10 @@ namespace Ref.Core.VM.IO.Devices
                     case 1:
                         Enable_VideoMode(bgRec);
                         break;
+
+                    case 2:
+                        Buffer.Flush();
+                        break;
                 }
             }
             else if (port == 0xFFAA)
