@@ -24,17 +24,16 @@ namespace TestConsole
 
             ro.Raw = BitConverter.GetBytes(0x2A);
 
-            var ass = new CommandWriter();
+            var ass = new CommandWriter {
+                { OpCode.LOAD, Registers.A, 0x2A },
+                { OpCode.INC, Registers.A },
+                { OpCode.LOADRO, 0x0, (int)Registers.D },
+                { OpCode.PUSHRO, 0x0},
 
-            //inc-method at 0
-            ass.Add(OpCode.LOAD, (int)Registers.A, 0x2A);
-            ass.Add(OpCode.INC, (int)Registers.A);
-            ass.Add(OpCode.LOADRO, 0x0, (int)Registers.D);
-            ass.Add(OpCode.PUSHRO, 0x0);
-
-            ass.Add(OpCode.OUT, 0xFFAA, (10 << 16) | ((10) & 0xffff)); // init size of video
-            ass.Add(OpCode.OUT, 0xFFAB, (10 << 16) | ((10) & 0xffff)); // init position of video
-            ass.Add(OpCode.OUT, 0xFFAF, 1); // change to videmode
+                { OpCode.OUT, 0xFFAA, (10 << 16) | ((10) & 0xffff) }, // init size of video
+                { OpCode.OUT, 0xFFAB, (10 << 16) | ((10) & 0xffff)}, // init position of video
+                { OpCode.OUT, 0xFFAF, 1 } // change to videmode
+            };
 
             for (int i = 0; i < 100; i++)
             {
@@ -43,6 +42,8 @@ namespace TestConsole
                     ass.Add(OpCode.OUT, 0xFFFF + i + j, 0xFFFFFF);
                 }
             }
+
+            ass.Add(OpCode.OUT, 0xFFAF, 2); //Flush Buffer to screen
 
             var endless = ass.MakeLabel();
             ass.Add(OpCode.JMP, endless);

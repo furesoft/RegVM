@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Ref.Core.VM.IO
 {
-    public class CommandWriter
+    public class CommandWriter : IEnumerable
     {
         public CommandWriter()
         {
@@ -11,9 +12,13 @@ namespace Ref.Core.VM.IO
             _bw = new BinaryWriter(_ms);
         }
 
-        public void Add(OpCode op, Registers reg, int value)
+        public void Add(OpCode op, Registers reg, params int[] value)
         {
-            Add(op, (int)reg, value);
+            var args = new List<int>();
+            args.Add((int)reg);
+            args.AddRange(value);
+
+            Add(op, args.ToArray());
         }
 
         public void Add(OpCode op, params int[] args)
@@ -25,6 +30,11 @@ namespace Ref.Core.VM.IO
             {
                 _bw.Write(arg);
             }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new System.NotImplementedException();
         }
 
         public int MakeLabel() => (int)_ms.Position;
