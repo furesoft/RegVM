@@ -30,11 +30,18 @@ namespace Ref.Core.VM.IO.Devices
 
         public static void Enable_VideoMode(Rectangle bgRec)
         {
-            FreeConsole();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                FreeConsole();
 
-            Buffer = VideoBuffer.Create(bgRec);
-            Buffer.Clear();
-            Buffer.Flush(); //ToDo: fix deadlock on flush
+                Buffer = VideoBuffer.Create(bgRec);
+                Buffer.Clear();
+                Buffer.Flush(); //ToDo: fix deadlock on flush
+            }
+            else
+            {
+                throw new RuntimeException("VideoMode is only available on Windows OS");
+            }
         }
 
         public static void Write(char c)
