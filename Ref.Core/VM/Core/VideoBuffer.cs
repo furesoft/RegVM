@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -24,8 +24,8 @@ namespace Ref.Core.VM.Core
             buf._rec = rec;
             buf._bufferData = new int[rec.Width * rec.Height * 4];
 
-            desktopPtr = GetDesktopWindow();
-            buf._graphics = Graphics.FromHwnd(desktopPtr);
+            desktopPtr = GetDC(IntPtr.Zero);
+            buf._graphics = Graphics.FromHdc(desktopPtr);
 
             return buf;
         }
@@ -62,6 +62,8 @@ namespace Ref.Core.VM.Core
 
         [DllImport("user32.dll", SetLastError = false)]
         private static extern IntPtr GetDesktopWindow();
+        [DllImport("User32.dll")]
+        private static extern IntPtr GetDC(IntPtr hwnd);
 
         [DllImport("User32.dll")]
         private static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
