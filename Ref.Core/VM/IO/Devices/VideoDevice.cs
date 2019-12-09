@@ -34,7 +34,7 @@ namespace Ref.Core.VM.IO.Devices
             {
                 FreeConsole();
 
-                Buffer = VideoBuffer.Create(bgRec);
+                Buffer = VideoBuffer.Create(bgRec, new WinApiDrawingContext()); //ToDo: enable option to seletc windowed mode
                 Buffer.Clear();
                 Buffer.Flush(); //ToDo: fix deadlock on flush
             }

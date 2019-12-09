@@ -18,14 +18,14 @@ namespace Ref.Core.VM.Core
             }
         }
 
-        public static VideoBuffer Create(Rectangle rec)
+        public static VideoBuffer Create(Rectangle rec, IDrawingContext drawingContext)
         {
             var buf = new VideoBuffer();
             buf._rec = rec;
             buf._bufferData = new int[rec.Width * rec.Height * 4];
 
-            desktopPtr = GetDC(IntPtr.Zero);
-            buf._graphics = Graphics.FromHdc(desktopPtr);
+            buf._context = drawingContext;
+            buf._context.Init(buf._rec);
 
             return buf;
         }
@@ -51,7 +51,7 @@ namespace Ref.Core.VM.Core
             {
                 for (int y = 0; y < _rec.Height; y++)
                 {
-                    _graphics.FillRectangle(new SolidBrush(Color.FromArgb(this[x, y])), new Rectangle(x, y, 1, 1));
+                    _context.SetPixel(new Point(x, y), this[x, y]);
                 }
             }
         }
@@ -60,15 +60,13 @@ namespace Ref.Core.VM.Core
         {
             if (disposed)
             {
-                ReleaseDC(IntPtr.Zero, desktopPtr);
+                _context.Cleanup();
             }
         }
 
-        private static IntPtr desktopPtr;
-
         private int[] _bufferData;
 
-        private Graphics _graphics;
+        private IDrawingContext _context;
 
         private Rectangle _rec;
 
@@ -76,11 +74,5 @@ namespace Ref.Core.VM.Core
         {
             Dispose(false);
         }
-
-        [DllImport("User32.dll")]
-        private static extern IntPtr GetDC(IntPtr hwnd);
-
-        [DllImport("User32.dll")]
-        private static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
     }
 }

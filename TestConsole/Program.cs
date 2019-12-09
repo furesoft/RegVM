@@ -30,7 +30,7 @@ namespace TestConsole
                 { OpCode.LOADRO, 0x0, (int)Registers.D },
                 { OpCode.PUSHRO, 0x0},
 
-                { OpCode.OUT, 0xFFAA, (10 << 16) | ((10) & 0xffff) }, // init size of video
+                { OpCode.OUT, 0xFFAA, (100 << 16) | ((100) & 0xffff) }, // init size of video
                 { OpCode.OUT, 0xFFAB, (10 << 16) | ((10) & 0xffff)}, // init position of video
                 { OpCode.OUT, 0xFFAF, 1 } // change to videmode
             };
@@ -46,7 +46,7 @@ namespace TestConsole
             ass.Add(OpCode.OUT, 0xFFAF, 2); //Flush Buffer to screen
 
             var endless = ass.MakeLabel();
-            ass.Add(OpCode.JMP, endless);
+            //ass.Add(OpCode.JMP, endless);
             //.Add(OpCode.CALL, loop);
 
             data.Raw = ass.Save();
