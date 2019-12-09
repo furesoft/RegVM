@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -40,7 +40,8 @@ namespace Ref.Core.VM.Core
 
         public void Dispose()
         {
-            ReleaseDC(IntPtr.Zero, desktopPtr);
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         //ToDo: Enable Property for automatic Flushing to Screen in new Thread
@@ -55,13 +56,27 @@ namespace Ref.Core.VM.Core
             }
         }
 
+        protected virtual void Dispose(bool disposed)
+        {
+            if (disposed)
+            {
+                ReleaseDC(IntPtr.Zero, desktopPtr);
+            }
+        }
+
         private static IntPtr desktopPtr;
+
         private int[] _bufferData;
+
         private Graphics _graphics;
+
         private Rectangle _rec;
 
-        [DllImport("user32.dll", SetLastError = false)]
-        private static extern IntPtr GetDesktopWindow();
+        ~VideoBuffer()
+        {
+            Dispose(false);
+        }
+
         [DllImport("User32.dll")]
         private static extern IntPtr GetDC(IntPtr hwnd);
 
