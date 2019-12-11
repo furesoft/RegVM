@@ -19,7 +19,7 @@ namespace Ref.Core.VM
 
         public void SetPixel(Point pos, Color color)
         {
-            _graphics.FillRectangle(new SolidBrush(Color.FromArgb(color)), new Rectangle(pos.X, pos.Y, 1, 1));
+            _graphics.FillRectangle(new SolidBrush(color), new Rectangle(pos.X, pos.Y, 1, 1));
         }
 
         private static IntPtr desktopPtr;

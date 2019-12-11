@@ -51,7 +51,7 @@ namespace Ref.Core.VM.Core
             {
                 for (int y = 0; y < _rec.Height; y++)
                 {
-                    _context.SetPixel(new Point(x, y), this[x, y]);
+                    _context.SetPixel(new Point(x, y), Color.FromArgb(this[x, y]));
                 }
             }
         }
