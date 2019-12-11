@@ -56,6 +56,12 @@ namespace Ref.Core.VM.Core
             }
         }
 
+        public void SetContext(Rectangle rec, IDrawingContext context)
+        {
+            _context = context;
+            _context.Init(rec);
+        }
+
         protected virtual void Dispose(bool disposed)
         {
             if (disposed)
