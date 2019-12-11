@@ -108,8 +108,8 @@ namespace Ref.Core.VM.IO.Devices
         }
 
         private const uint ATTACH_PARENT_PROCESS = 0x0ffffffff;
-
         private Rectangle bgRec;
+        private bool windowedMode = false;
 
         [DllImport("kernel32")]
         private static extern bool AllocConsole();
