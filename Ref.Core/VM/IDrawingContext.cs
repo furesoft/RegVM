@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Ref.Core.VM.Core;
+using System.Drawing;
 
 namespace Ref.Core.VM
 {
@@ -8,6 +9,6 @@ namespace Ref.Core.VM
 
         void Init(Rectangle rec);
 
-        void SetPixel(Point pos, Color color);
+        void SetPixel(Point pos, Pixel color);
     }
 }

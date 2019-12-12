@@ -1,8 +1,9 @@
 ﻿using Ref.Core;
 using Ref.Core.VM.IO;
-using Ref.Core.VM.Core;
 using System;
 using Ref.Core.VM.IO.Devices;
+using System.Drawing;
+using Ref.Core.VM.Core;
 
 namespace TestConsole
 {
@@ -35,21 +36,22 @@ namespace TestConsole
                 { OpCode.OUT, 0xFFAF, 1 } // change to videmode
             };
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 400; i++)
             {
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < 400; j++)
                 {
-                    ass.Add(OpCode.OUT, 0xFFFF + i + j, 0xFFFFFF);
+                    ass.Add(OpCode.OUT, 0xFFFF + i + j, Pixels.Blue.ToHex());
                 }
             }
 
+            var endless = ass.MakeLabel();
             ass.Add(OpCode.OUT, 0xFFAF, 2); //Flush Buffer to screen
 
-            var endless = ass.MakeLabel();
-            //ass.Add(OpCode.JMP, endless);
+            ass.Add(OpCode.JMP, endless);
             //.Add(OpCode.CALL, loop);
 
             data.Raw = ass.Save();
+
             var vm = new VirtualMachine(Assembly.Load(file.Save()));
             vm.Run();
 

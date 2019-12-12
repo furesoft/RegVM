@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ref.Core.VM.Core;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -17,9 +18,9 @@ namespace Ref.Core.VM
             _graphics = Graphics.FromHdc(desktopPtr);
         }
 
-        public void SetPixel(Point pos, Color color)
+        public void SetPixel(Point pos, Pixel color)
         {
-            _graphics.FillRectangle(new SolidBrush(color), new Rectangle(pos.X, pos.Y, 1, 1));
+            _graphics.FillRectangle(new SolidBrush(Color.FromArgb(color.R, color.G, color.B)), new Rectangle(pos.X, pos.Y, 1, 1));
         }
 
         private static IntPtr desktopPtr;

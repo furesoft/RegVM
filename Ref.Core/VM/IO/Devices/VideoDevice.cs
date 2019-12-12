@@ -36,7 +36,7 @@ namespace Ref.Core.VM.IO.Devices
 
                 Buffer = VideoBuffer.Create(bgRec, new WinApiDrawingContext()); //ToDo: enable option to seletc windowed mode
                 Buffer.Clear();
-                Buffer.Flush(); //ToDo: fix deadlock on flush
+                //Buffer.Flush(); //ToDo: fix deadlock on flush
             }
             else
             {

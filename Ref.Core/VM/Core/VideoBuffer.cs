@@ -6,7 +6,7 @@ namespace Ref.Core.VM.Core
 {
     public class VideoBuffer : IDisposable
     {
-        public int this[int x, int y]
+        public Pixel this[int x, int y]
         {
             get
             {
@@ -22,7 +22,7 @@ namespace Ref.Core.VM.Core
         {
             var buf = new VideoBuffer();
             buf._rec = rec;
-            buf._bufferData = new int[rec.Width * rec.Height * 4];
+            buf._bufferData = new Pixel[rec.Width * rec.Height * 4];
 
             buf._context = drawingContext;
             buf._context.Init(buf._rec);
@@ -34,7 +34,7 @@ namespace Ref.Core.VM.Core
         {
             for (int i = 0; i < _bufferData.Length; i++)
             {
-                _bufferData[i] = 0x000000;
+                _bufferData[i] = new Pixel(240, 248, 255);
             }
         }
 
@@ -51,7 +51,7 @@ namespace Ref.Core.VM.Core
             {
                 for (int y = 0; y < _rec.Height; y++)
                 {
-                    _context.SetPixel(new Point(x, y), Color.FromArgb(this[x, y]));
+                    _context.SetPixel(new Point(x, y), this[x, y]);
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace Ref.Core.VM.Core
             }
         }
 
-        private int[] _bufferData;
+        private Pixel[] _bufferData;
 
         private IDrawingContext _context;
 
