@@ -10,11 +10,11 @@ namespace Ref.Core.VM.Core
         {
             get
             {
-                return _bufferData[x + (y * _rec.Width)];
+                return _bufferData[x * y];
             }
             set
             {
-                _bufferData[x + (y * _rec.Width)] = value;
+                _bufferData[x * y] = value;
             }
         }
 
@@ -22,7 +22,7 @@ namespace Ref.Core.VM.Core
         {
             var buf = new VideoBuffer();
             buf._rec = rec;
-            buf._bufferData = new Pixel[rec.Width * rec.Height * 4];
+            buf._bufferData = new Pixel[rec.Width * rec.Height];
 
             buf._context = drawingContext;
             buf._context.Init(buf._rec);
@@ -34,7 +34,7 @@ namespace Ref.Core.VM.Core
         {
             for (int i = 0; i < _bufferData.Length; i++)
             {
-                _bufferData[i] = new Pixel(240, 248, 255);
+                _bufferData[i] = Pixels.Red;
             }
         }
 
