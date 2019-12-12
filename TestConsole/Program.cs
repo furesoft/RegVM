@@ -36,9 +36,9 @@ namespace TestConsole
                 { OpCode.OUT, 0xFFAF, 1 } // change to videmode
             };
 
-            for (int i = 0; i < 400; i++)
+            for (int i = 0; i < 100; i++)
             {
-                for (int j = 0; j < 400; j++)
+                for (int j = 0; j < 100; j++)
                 {
                     ass.Add(OpCode.OUT, 0xFFFF + i + j, Pixels.Blue.ToHex());
                 }
