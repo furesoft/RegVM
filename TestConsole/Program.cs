@@ -40,7 +40,7 @@ namespace TestConsole
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    ass.Add(OpCode.OUT, 0xFFFF + i + j, Pixels.Blue.ToHex());
+                    ass.Add(OpCode.OUT, 0xFFFF + i * j, Pixels.Blue.ToHex());
                 }
             }
 

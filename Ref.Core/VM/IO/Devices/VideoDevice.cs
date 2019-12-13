@@ -10,7 +10,7 @@ namespace Ref.Core.VM.IO.Devices
     [Port(0xFFAF, PortAccess.Write)] // control port
     [Port(0xFFAA, PortAccess.Write)] // Init Port (Size)
     [Port(0xFFAB, PortAccess.Write)] // Init Port (Location)
-    [AddressRange(0xFFFF, 0xFFFFFF)] // screen buffer range
+    [AddressRange(0xFFFF, 0xFFFFFFF)] // screen buffer range
     public class VideoDevice : IPortMappedDevice, IMemoryMappedDevice
     {
         public static VideoBuffer Buffer;
@@ -63,6 +63,7 @@ namespace Ref.Core.VM.IO.Devices
             ushort y = BitConverter.ToUInt16(bytes, 2);
 
             Buffer[x, y] = value;
+            Logger.Log($"StartAddress: 0xFFFF; EndAddress: 0xFFFFFFF; Currentaddress: {address}; IsBetween: { address >= 0xFFFF & address <= 0xFFFFFFF}");
         }
 
         public void HandleRead(int port, Registers reg, VirtualMachine vm)
