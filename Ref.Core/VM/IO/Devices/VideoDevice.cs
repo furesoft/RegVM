@@ -63,7 +63,7 @@ namespace Ref.Core.VM.IO.Devices
             ushort y = BitConverter.ToUInt16(bytes, 2);
 
             Buffer[x, y] = value;
-            Logger.Log($"StartAddress: 0xFFFF; EndAddress: 0xFFFFFFF; Currentaddress: {address}; IsBetween: { address >= 0xFFFF & address <= 0xFFFFFFF}");
+            Logger.Log($"StartAddress: 0xFFFF; EndAddress: 0xFFFFFFF; Currentaddress: 0x{address.ToString("x")}; IsBetween: { address >= 0xFFFF & address <= 0xFFFFFFF}");
         }
 
         public void HandleRead(int port, Registers reg, VirtualMachine vm)

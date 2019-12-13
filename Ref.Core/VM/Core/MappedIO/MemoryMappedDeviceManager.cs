@@ -32,6 +32,7 @@ namespace Ref.Core.VM.Core.MappedIO
                 if (out_addr >= device.Key.Start && out_addr <= device.Key.End)
                 {
                     var translated_addr = out_addr - device.Key.Start;
+
                     device.Value.HandleMemoryMapped(translated_addr, out_value, vm);
                     break;
                 }
