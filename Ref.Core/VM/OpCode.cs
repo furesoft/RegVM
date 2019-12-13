@@ -25,6 +25,7 @@
         CALL,
         RET,
         OUT,
+        OUTR,
         IN,
         PUSHL,
         JMPE,
