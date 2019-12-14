@@ -2,6 +2,9 @@
 {
     public enum Registers : byte
     {
-        A, B, C, D, E, F, IPR, ORE, BRR, ERR, ACC
+        A, B, C, D, E, F,
+        EAX, EBX,
+        KDR, // Keyboard Device Ready Register
+        IPR, ORE, BRR, ERR, ACC,
     }
 }
