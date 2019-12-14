@@ -41,7 +41,16 @@ namespace TestConsole
                 for (short j = 0; j < 100; j++)
                 {
                     var address = i << 16 | j;
-                    ass.Add(OpCode.OUT, 0xFFFF + address, Pixels.Blue.ToHex());
+                    Pixel color;
+                    if (i >= 50 || j >= 50)
+                    {
+                        color = Pixels.Blue;
+                    }
+                    else
+                    {
+                        color = Pixels.Red;
+                    }
+                    ass.Add(OpCode.OUT, 0xFFFF + address, color.ToHex());
                 }
             }
 
