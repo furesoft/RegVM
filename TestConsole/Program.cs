@@ -22,17 +22,19 @@ namespace TestConsole
             var ro = file.Elf;
             ro.AddSection(new ElfCustomSection(new MemoryStream(BitConverter.GetBytes(0x2A))).ConfigureAs(ElfSectionSpecialType.ReadOnlyData));
 
-            var ass = new CommandWriter {
-                { OpCode.LOAD, Registers.A, 0x2A },
-                { OpCode.INC, Registers.A },
-                { OpCode.LOADRO, 0x0, (int)Registers.D },
-                { OpCode.PUSHRO, 0x0},
+            var ass = new CommandWriter();
+            var check = ass.MakeLabel();
+            ass.Add(OpCode.OUT, 0xFFAA, (100 << 16) | ((100) & 0xffff)); // init size of video
+            ass.Add(OpCode.OUT, 0xFFAB, (10 << 16) | ((10) & 0xffff)); // init position of video
+            ass.Add(OpCode.OUT, 0xFFAF, 1); // change to videmode
 
-                { OpCode.OUT, 0xFFAA, (100 << 16) | ((100) & 0xffff) }, // init size of video
-                { OpCode.OUT, 0xFFAB, (10 << 16) | ((10) & 0xffff)}, // init position of video
-                { OpCode.OUT, 0xFFAF, 1 } // change to videmode
-            };
+            ass.Add(OpCode.EQUAL, Registers.KDS, 0x01);
+            ass.Add(OpCode.JMPNE, check);
+            ass.Add(OpCode.PUSH, Registers.KDS);
+            ass.Add(OpCode.OUT, 0xABC, 1);
+            ass.Add(OpCode.JMP, check);
 
+            /*
             for (short i = 0; i < 100; i++)
             {
                 for (short j = 0; j < 100; j++)
@@ -49,7 +51,7 @@ namespace TestConsole
                     }
                     ass.Add(OpCode.OUT, 0xFFFF + address, color.ToHex());
                 }
-            }
+            }*/
 
             var endless = ass.MakeLabel();
             ass.Add(OpCode.OUT, 0xFFAF, 2); //Flush Buffer to screen
