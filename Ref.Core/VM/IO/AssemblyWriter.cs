@@ -12,6 +12,7 @@ namespace Ref.Core.VM.IO
 
         public AssemblyWriter()
         {
+            Elf.FileType = ElfFileType.Executable;
             Elf.AddSection(new ElfSectionHeaderStringTable());
         }
 
