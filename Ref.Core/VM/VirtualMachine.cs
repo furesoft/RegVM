@@ -1,4 +1,5 @@
-﻿using Ref.Core.Parser;
+﻿using LibObjectFile.Elf;
+using Ref.Core.Parser;
 using Ref.Core.VM;
 using Ref.Core.VM.Core.Interrupts;
 using Ref.Core.VM.Core.MappedIO;
@@ -7,18 +8,20 @@ using Ref.Core.VM.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Ref.Core
 {
     public class VirtualMachine
     {
-        public Assembly Assembly { get; set; }
+        public ElfObjectFile Assembly { get; set; }
         public Debugger Debugger { get; set; } = new Debugger();
         public Dictionary<OpCode, Instruction> Instructions { get; set; } = new Dictionary<OpCode, Instruction>();
         public RegisterCollection Register { get; set; }
         public Stack Stack { get; set; }
 
-        public VirtualMachine(Assembly file)
+        public VirtualMachine(ElfObjectFile file)
         {
             Assembly = file;
             Register = new RegisterCollection(this);
@@ -58,14 +61,16 @@ namespace Ref.Core
             }
         }
 
-        public void Run(int startAddress = 0)
+        public void Run()
         {
-            Run(Assembly[AssemblySections.Code].Raw, startAddress);
+            var start = Assembly.EntryPointAddress;
+            var code = Assembly.Sections.Where(_ => _.Flags.HasFlag(ElfSectionFlags.Alloc) && _.Flags.HasFlag(ElfSectionFlags.Executable)).FirstOrDefault();
+            Run(((ElfCustomSection)code).Stream, start);
         }
 
-        public void Run(byte[] raw, int startAddress = 0)
+        public void Run(Stream strm, ulong startAddress = 0)
         {
-            var r = new BinaryReader(new MemoryStream(raw));
+            var r = new BinaryReader(strm);
             Register.Subscribe(Registers.IPR, _ =>
             {
                 r.BaseStream.Position = _;
@@ -77,10 +82,10 @@ namespace Ref.Core
 
             if (startAddress != 0)
             {
-                Register.SetValue(Registers.IPR, startAddress);
+                Register.SetValue(Registers.IPR, (int)startAddress);
             }
 
-            while (Register[Registers.IPR] < raw.Length)
+            while (Register[Registers.IPR] < strm.Length)
             {
                 ParseInstruction(r);
             }

@@ -3,6 +3,8 @@ using Ref.Core.VM.IO;
 using System;
 using Ref.Core.VM.IO.Devices;
 using Ref.Core.VM.Core;
+using LibObjectFile.Elf;
+using System.IO;
 
 namespace TestConsole
 {
@@ -15,14 +17,10 @@ namespace TestConsole
             var file = new AssemblyWriter();
             var meta = new AssemblyInfo { Version = "1.0.0.0", ID = Guid.NewGuid() };
 
-            file.AddMeta(meta);
+            file.CreateMetaSection(meta);
 
-            var typeinfo = file.CreateSection(AssemblySections.TypeInfo);
-            var debuginfo = file.CreateSection(AssemblySections.DebugInfo);
-            var ro = file.CreateSection(AssemblySections.ReadOnly);
-            var data = file.CreateSection(AssemblySections.Code);
-
-            ro.Raw = BitConverter.GetBytes(0x2A);
+            var ro = file.Elf;
+            ro.AddSection(new ElfCustomSection(new MemoryStream(BitConverter.GetBytes(0x2A))).ConfigureAs(ElfSectionSpecialType.ReadOnlyData));
 
             var ass = new CommandWriter {
                 { OpCode.LOAD, Registers.A, 0x2A },
@@ -59,9 +57,9 @@ namespace TestConsole
             ass.Add(OpCode.JMP, endless);
             //.Add(OpCode.CALL, loop);
 
-            data.Raw = ass.Save();
+            file.CreateCodeSection(ass);
 
-            var vm = new VirtualMachine(Assembly.Load(file.Save()));
+            var vm = new VirtualMachine(ElfObjectFile.Read(new MemoryStream(file.Save())));
             vm.Run();
 
             /*Utils.PrintRegisters(vm.Register);

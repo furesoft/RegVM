@@ -20,7 +20,7 @@ namespace Ref_Compiler.MiddleWare
                 cmdBuffer.Add(line.OpCode, line.Args.Select(_ => (int)_.Value).ToArray());
             }
 
-            writer.AddCode(cmdBuffer);
+            writer.CreateCodeSection(cmdBuffer);
 
             File.WriteAllBytes(parameter.Output, writer.Save());
 

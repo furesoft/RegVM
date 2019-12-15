@@ -12,10 +12,10 @@ namespace Ref.Core.VM.Instructions
         {
             var startIndex = (int)cmd[0];
 
-            var section = vm.Assembly[AssemblySections.ReadOnly];
+            /*var section = vm.Assembly[AssemblySections.ReadOnly];
             var value = BitConverter.ToInt32(section.Raw, startIndex);
 
-            vm.Stack.Push(value);
+            vm.Stack.Push(value);*/
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibObjectFile.Elf;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,53 +8,43 @@ namespace Ref.Core.VM.IO
 {
     public class AssemblyWriter
     {
-        public List<AssemblySection> Sections { get; set; } = new List<AssemblySection>();
+        public ElfObjectFile Elf = new ElfObjectFile();
 
-        public void AddCode(CommandWriter cmdBuffer)
+        public AssemblyWriter()
+        {
+            Elf.AddSection(new ElfSectionHeaderStringTable());
+        }
+
+        public void CreateCodeSection(CommandWriter cmdBuffer)
         {
             var code = cmdBuffer.Save();
-            var section = CreateSection(AssemblySections.Code);
-            section.Raw = code;
+            var codeSection = new ElfCustomSection(new MemoryStream(code)).ConfigureAs(ElfSectionSpecialType.Text);
+            Elf.AddSection(codeSection);
         }
 
-        public void AddMeta(AssemblyInfo info)
+        public void CreateMetaSection(AssemblyInfo info)
         {
-            var metaSection = CreateSection(AssemblySections.Metadata);
-            metaSection.Raw = info.Serialize();
-        }
+            var metaSection = new ElfCustomSection(new MemoryStream(info.Serialize())).ConfigureAs(ElfSectionSpecialType.Data);
 
-        public AssemblySection CreateSection(AssemblySections section)
-        {
-            var s = new AssemblySection();
-            s.Name = Enum.GetName(typeof(AssemblySections), section);
-
-            if (!Sections.Where(_ => _.Name == s.Name).Any())
-            {
-                Sections.Add(s);
-            }
-
-            return s;
+            Elf.AddSection(metaSection);
         }
 
         public byte[] Save()
         {
             var ms = new MemoryStream();
-            var bw = new BinaryWriter(ms);
 
-            bw.Write(0xA33);
-
-            bw.Write(Sections.Count);
-
-            foreach (var s in Sections)
-            {
-                bw.Write(s.Name);
-                bw.Write(s.Raw.Length);
-                bw.Write(s.Raw);
-            }
-
-            bw.Close();
+            Elf.Write(ms);
 
             return ms.ToArray();
+        }
+
+        public Stream SaveToStream()
+        {
+            var ms = new MemoryStream();
+
+            Elf.Write(ms);
+
+            return ms;
         }
     }
 }
