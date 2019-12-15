@@ -15,11 +15,9 @@ namespace Ref.Core.VM.Instructions
             var startIndex = (int)cmd[0];
 
             var section = vm.Assembly.GetSection<ElfCustomSection>(ElfSectionSpecialType.ReadOnlyData);
-            var ms = new MemoryStream();
-            section.Stream.CopyTo(ms);
 
             //ToDo: improve reading ro data
-            var value = BitConverter.ToInt32(ms.ToArray(), startIndex);
+            var value = BitConverter.ToInt32(((MemoryStream)section.Stream).ToArray(), startIndex);
 
             vm.Stack.Push(value);
         }
