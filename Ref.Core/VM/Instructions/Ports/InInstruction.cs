@@ -15,7 +15,7 @@ namespace Ref.Core.VM.Instructions
             var in_addr = (int)cmd[0];
             var in_reg = (Registers)(int)cmd[1];
 
-            PortMappedDeviceManager.Read(in_addr, in_reg, vm);
+            PortMappedDeviceManager.Read(in_addr, in_reg);
         }
     }
 }

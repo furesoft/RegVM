@@ -15,7 +15,7 @@ namespace Ref.Core.VM.Instructions
 
             if (PortMappedDeviceManager.IsRegistered(out_addr))
             {
-                PortMappedDeviceManager.Write(out_addr, out_value, vm);
+                PortMappedDeviceManager.Write(out_addr, out_value);
             }
             else
             {

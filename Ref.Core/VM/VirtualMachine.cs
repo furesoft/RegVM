@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace Ref.Core
 {
@@ -28,7 +29,7 @@ namespace Ref.Core
             Stack = new Stack();
 
             ScanInstructions();
-            PortMappedDeviceManager.ScanDevices();
+            PortMappedDeviceManager.ScanDevices(this);
             InterruptTable.ScanHandlers();
             MemoryMappedDeviceManager.ScanDevices();
             ErrorTable.ScanErrors();

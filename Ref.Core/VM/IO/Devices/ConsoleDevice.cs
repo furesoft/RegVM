@@ -9,12 +9,14 @@ namespace Ref.Core.VM.IO.Devices
     [AddressRange(0xA, 0xFF)] // address range for console output
     public class ConsoleDevice : IPortMappedDevice, IMemoryMappedDevice
     {
+        public VirtualMachine VM { get; set; }
+
         public void HandleMemoryMapped(int address, int value, VirtualMachine vm)
         {
             VideoDevice.Write((char)value);
         }
 
-        public void HandleRead(int port, Registers reg, VirtualMachine vm)
+        public void HandleRead(int port, Registers reg)
         {
             int result = 0;
             switch (port)
@@ -24,10 +26,10 @@ namespace Ref.Core.VM.IO.Devices
                     break;
             }
 
-            vm.Register[reg] = result;
+            VM.Register[reg] = result;
         }
 
-        public void HandleWrite(int addr, int controlVal, VirtualMachine vm)
+        public void HandleWrite(int addr, int controlVal)
         {
             switch (controlVal)
             {
@@ -36,15 +38,15 @@ namespace Ref.Core.VM.IO.Devices
                     break;
 
                 case 1:
-                    VideoDevice.Write((char)vm.Stack.Pop());
+                    VideoDevice.Write((char)VM.Stack.Pop());
                     break;
 
                 case 2:
-                    Console.ForegroundColor = (ConsoleColor)vm.Stack.Pop();
+                    Console.ForegroundColor = (ConsoleColor)VM.Stack.Pop();
                     break;
 
                 case 3:
-                    Console.BackgroundColor = (ConsoleColor)vm.Stack.Pop();
+                    Console.BackgroundColor = (ConsoleColor)VM.Stack.Pop();
                     break;
 
                 case 4:
@@ -53,7 +55,7 @@ namespace Ref.Core.VM.IO.Devices
                     break;
 
                 case 5:
-                    Console.Beep(vm.Stack.Pop(), vm.Stack.Pop());
+                    Console.Beep(VM.Stack.Pop(), VM.Stack.Pop());
                     break;
             }
         }

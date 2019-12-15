@@ -15,18 +15,18 @@ namespace Ref.Core.VM.Core.Ports
             return ReadPorts.ContainsKey(out_addr) || WritePorts.ContainsKey(out_addr);
         }
 
-        public static void Read(int port, Registers reg, VirtualMachine vm)
+        public static void Read(int port, Registers reg)
         {
             if (ReadPorts.ContainsKey(port))
             {
-                ReadPorts[port].HandleRead(port, reg, vm);
+                ReadPorts[port].HandleRead(port, reg);
                 return;
             }
 
             throw new Exception($"Unmapped Port 0x{port.ToString("x")}");
         }
 
-        public static void ScanDevices()
+        public static void ScanDevices(VirtualMachine vm)
         {
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
             {
@@ -34,6 +34,8 @@ namespace Ref.Core.VM.Core.Ports
                 {
                     var device = (IPortMappedDevice)Activator.CreateInstance(type);
                     var attrs = type.GetCustomAttributes<PortAttribute>();
+
+                    device.VM = vm;
 
                     foreach (var att in attrs)
                     {
@@ -50,11 +52,11 @@ namespace Ref.Core.VM.Core.Ports
             }
         }
 
-        public static void Write(int port, int value, VirtualMachine vm)
+        public static void Write(int port, int value)
         {
             if (WritePorts.ContainsKey(port))
             {
-                WritePorts[port].HandleWrite(port, value, vm);
+                WritePorts[port].HandleWrite(port, value);
                 return;
             }
 

@@ -14,6 +14,7 @@ namespace Ref.Core.VM.IO.Devices
     public class VideoDevice : IPortMappedDevice, IMemoryMappedDevice
     {
         public static VideoBuffer Buffer;
+        public VirtualMachine VM { get; set; }
 
         public static void CleanUP()
         {
@@ -66,12 +67,12 @@ namespace Ref.Core.VM.IO.Devices
             Logger.Log($"StartAddress: 0xFFFF; EndAddress: 0xFFFFFFF; Currentaddress: 0x{address.ToString("x")}; IsBetween: { address >= 0xFFFF & address <= 0xFFFFFFF}");
         }
 
-        public void HandleRead(int port, Registers reg, VirtualMachine vm)
+        public void HandleRead(int port, Registers reg)
         {
             throw new System.NotImplementedException();
         }
 
-        public void HandleWrite(int port, int value, VirtualMachine vm)
+        public void HandleWrite(int port, int value)
         {
             if (port == 0xFFAF)
             {
