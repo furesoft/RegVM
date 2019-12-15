@@ -2,7 +2,6 @@
 using Ref.Core.VM.IO;
 using System;
 using Ref.Core.VM.IO.Devices;
-using System.Drawing;
 using Ref.Core.VM.Core;
 
 namespace TestConsole
