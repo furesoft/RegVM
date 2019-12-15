@@ -64,8 +64,8 @@ namespace Ref.Core
         public void Run()
         {
             var start = Assembly.EntryPointAddress;
-            var code = Assembly.Sections.Where(_ => _.Flags.HasFlag(ElfSectionFlags.Alloc) && _.Flags.HasFlag(ElfSectionFlags.Executable)).FirstOrDefault();
-            Run(((ElfCustomSection)code).Stream, start);
+            var code = Assembly.GetSection<ElfCustomSection>(ElfSectionSpecialType.Text);
+            Run(code.Stream, start);
         }
 
         public void Run(Stream strm, ulong startAddress = 0)

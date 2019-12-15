@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using LibObjectFile.Elf;
 using Ref.Core.Parser;
 using Ref.Core.VM.IO;
 
@@ -13,10 +16,14 @@ namespace Ref.Core.VM.Instructions
             var startIndex = (int)cmd[0];
             var reg = (Registers)(int)cmd[1];
 
-            /* var section = vm.Assembly[AssemblySections.ReadOnly];
-             var value = BitConverter.ToInt32(section.Raw, startIndex);
+            var section = vm.Assembly.GetSection<ElfCustomSection>(ElfSectionSpecialType.ReadOnlyData);
+            var ms = new MemoryStream();
+            section.Stream.CopyTo(ms);
 
-             vm.Register[reg] = value;*/
+            //ToDo: improve reading ro data
+            var value = BitConverter.ToInt32(ms.ToArray(), startIndex);
+
+            vm.Register[reg] = value;
         }
     }
 }
