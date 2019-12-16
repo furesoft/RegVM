@@ -92,6 +92,30 @@ namespace Ref.Core
             }
         }
 
+        public void SetMemoryOf<T>(int start, int value)
+                            where T : IMemory
+        {
+            var memoryType = typeof(T).Name;
+            Memory result;
+
+            switch (memoryType)
+            {
+                case nameof(Stack):
+                    result = Stack.Memory;
+                    break;
+
+                case nameof(Register):
+                    result = Register.Memory;
+                    break;
+
+                default:
+                    result = null;
+                    break;
+            }
+
+            result.SetValue(start, value);
+        }
+
         public byte[] ViewMemoryOf<T>(int n = 10)
             where T : IMemory
         {

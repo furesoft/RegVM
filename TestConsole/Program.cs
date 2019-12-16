@@ -1,4 +1,4 @@
-using Ref.Core;
+﻿using Ref.Core;
 using Ref.Core.VM.IO;
 using System;
 using Ref.Core.VM.IO.Devices;
@@ -50,6 +50,7 @@ namespace TestConsole
 
             var vm = new VirtualMachine(ElfObjectFile.Read(new MemoryStream(file.Save())));
             vm.Run();
+            vm.SetMemoryOf<Register>(0, 0x2a);
 
             /*Utils.PrintRegisters(vm.Register);
 
