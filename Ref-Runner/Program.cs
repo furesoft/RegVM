@@ -2,9 +2,9 @@
 using Ref.Core;
 using Ref.Core.VM.IO;
 using Ref.Core.VM.IO.Devices;
+using Ref.Shared;
 using System.IO;
 using System.Linq;
-using TestConsole;
 
 namespace RefVM_Runner
 {
@@ -17,7 +17,7 @@ namespace RefVM_Runner
             var vm = new VirtualMachine(ass);
 
             VideoDevice.Enable_ConsoleMode();
-            VideoDevice.DefaultContext = new WinformsDrawingContext();
+            VideoDevice.DefaultContext = new MonoDrawingContext();
 
             vm.Run();
 

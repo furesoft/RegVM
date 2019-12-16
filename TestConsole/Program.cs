@@ -5,6 +5,7 @@ using Ref.Core.VM.IO.Devices;
 using Ref.Core.VM.Core;
 using LibObjectFile.Elf;
 using System.IO;
+using Ref.Shared;
 
 namespace TestConsole
 {
@@ -13,7 +14,7 @@ namespace TestConsole
         private static void Main(string[] args)
         {
             VideoDevice.Enable_ConsoleMode();
-            VideoDevice.DefaultContext = new WinformsDrawingContext();
+            VideoDevice.DefaultContext = new MonoDrawingContext();
 
             var file = new AssemblyWriter();
             var meta = new AssemblyInfo { Version = "1.0.0.0", ID = Guid.NewGuid() };
