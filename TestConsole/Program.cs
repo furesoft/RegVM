@@ -13,6 +13,7 @@ namespace TestConsole
         private static void Main(string[] args)
         {
             VideoDevice.Enable_ConsoleMode();
+            VideoDevice.DefaultContext = new WinformsDrawingContext();
 
             var file = new AssemblyWriter();
             var meta = new AssemblyInfo { Version = "1.0.0.0", ID = Guid.NewGuid() };
@@ -27,24 +28,15 @@ namespace TestConsole
             ass.Add(OpCode.OUT, 0xFFAA, (100 << 16) | ((100) & 0xffff)); // init size of video
             ass.Add(OpCode.OUT, 0xFFAB, (10 << 16) | ((10) & 0xffff)); // init position of video
             ass.Add(OpCode.OUT, 0xFFAF, 1); // change to videmode
-            ass.Add(OpCode.OUT, 0xBCD, 1); // initialize keyboard device
+                                            //ass.Add(OpCode.OUT, 0xBCD, 1); // initialize keyboard device
 
-            var check = ass.MakeLabel();
-            ass.Add(OpCode.IN, 0xBCD1, 1);
-            ass.Add(OpCode.EQUAL, Registers.KDS, 0x01);
-            ass.Add(OpCode.JMPNE, check);
-            ass.Add(OpCode.PUSH, Registers.KDS);
-            ass.Add(OpCode.INT, 0x1);
-            ass.Add(OpCode.JMP, check);
-
-            /*
             for (short i = 0; i < 100; i++)
             {
                 for (short j = 0; j < 100; j++)
                 {
                     var address = i << 16 | j;
                     Pixel color;
-                    if (i >= 50 || j >= 50)
+                    if (i >= 50)
                     {
                         color = Pixels.Blue;
                     }
@@ -54,7 +46,7 @@ namespace TestConsole
                     }
                     ass.Add(OpCode.OUT, 0xFFFF + address, color.ToHex());
                 }
-            }*/
+            }
 
             var endless = ass.MakeLabel();
             ass.Add(OpCode.OUT, 0xFFAF, 2); //Flush Buffer to screen
