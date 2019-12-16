@@ -23,15 +23,18 @@ namespace TestConsole
             ro.AddSection(new ElfCustomSection(new MemoryStream(BitConverter.GetBytes(0x2A))).ConfigureAs(ElfSectionSpecialType.ReadOnlyData));
 
             var ass = new CommandWriter();
-            var check = ass.MakeLabel();
+
             ass.Add(OpCode.OUT, 0xFFAA, (100 << 16) | ((100) & 0xffff)); // init size of video
             ass.Add(OpCode.OUT, 0xFFAB, (10 << 16) | ((10) & 0xffff)); // init position of video
             ass.Add(OpCode.OUT, 0xFFAF, 1); // change to videmode
+            ass.Add(OpCode.OUT, 0xBCD, 1); // initialize keyboard device
 
+            var check = ass.MakeLabel();
+            ass.Add(OpCode.IN, 0xBCD1, 1);
             ass.Add(OpCode.EQUAL, Registers.KDS, 0x01);
             ass.Add(OpCode.JMPNE, check);
             ass.Add(OpCode.PUSH, Registers.KDS);
-            ass.Add(OpCode.OUT, 0xABC, 1);
+            ass.Add(OpCode.INT, 0x1);
             ass.Add(OpCode.JMP, check);
 
             /*
