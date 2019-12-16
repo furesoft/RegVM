@@ -1,6 +1,8 @@
 ﻿using Ref.Core.VM;
 using Ref.Core.VM.Core;
+using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace TestConsole
@@ -23,12 +25,20 @@ namespace TestConsole
             _form.FormBorderStyle = FormBorderStyle.None;
             _graphics = _form.CreateGraphics();
 
-            Application.Run(_form);
+            var t = new Thread(() =>
+            {
+                Application.Run(_form);
+            });
+
+            t.Start();
         }
 
         public void SetPixel(Point pos, Pixel color)
         {
-            _graphics.FillRectangle(new SolidBrush(Color.FromArgb(color.ToHex())), new Rectangle(pos, new Size(1, 1)));
+            _form.BeginInvoke(new Action(() =>
+            {
+                _graphics.FillRectangle(new SolidBrush(Color.FromArgb(color.ToHex())), new Rectangle(pos, new Size(1, 1)));
+            }));
         }
 
         private Form _form;
