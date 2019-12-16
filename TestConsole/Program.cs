@@ -1,4 +1,4 @@
-﻿using Ref.Core;
+using Ref.Core;
 using Ref.Core.VM.IO;
 using System;
 using Ref.Core.VM.IO.Devices;
@@ -25,25 +25,17 @@ namespace TestConsole
 
             var ass = new CommandWriter();
 
-            ass.Add(OpCode.OUT, 0xFFAA, (100 << 16) | ((100) & 0xffff)); // init size of video
-            ass.Add(OpCode.OUT, 0xFFAB, (10 << 16) | ((10) & 0xffff)); // init position of video
+            ass.Add(OpCode.OUT, 0xFFAA, (500 << 16) | ((500) & 0xffff)); // init size of video
+            ass.Add(OpCode.OUT, 0xFFAB, (100 << 16) | ((100) & 0xffff)); // init position of video
             ass.Add(OpCode.OUT, 0xFFAF, 1); // change to videmode
-                                            //ass.Add(OpCode.OUT, 0xBCD, 1); // initialize keyboard device
 
             for (short i = 0; i < 100; i++)
             {
                 for (short j = 0; j < 100; j++)
                 {
                     var address = i << 16 | j;
-                    Pixel color;
-                    if (i >= 50)
-                    {
-                        color = Pixels.Blue;
-                    }
-                    else
-                    {
-                        color = Pixels.Red;
-                    }
+                    Pixel color = Pixels.Red;
+
                     ass.Add(OpCode.OUT, 0xFFFF + address, color.ToHex());
                 }
             }
