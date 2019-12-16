@@ -14,6 +14,7 @@ namespace Ref.Core.VM.IO.Devices
     public class VideoDevice : IPortMappedDevice, IMemoryMappedDevice
     {
         public static VideoBuffer Buffer;
+        public static IDrawingContext DefaultContext { get; set; } = new WinApiDrawingContext();
         public VirtualMachine VM { get; set; }
 
         public static void CleanUP()
@@ -35,7 +36,7 @@ namespace Ref.Core.VM.IO.Devices
             {
                 FreeConsole();
 
-                Buffer = VideoBuffer.Create(bgRec, new WinApiDrawingContext()); //ToDo: enable option to seletc windowed mode
+                Buffer = VideoBuffer.Create(bgRec, DefaultContext); //ToDo: enable option to seletc windowed mode
                 Buffer.Clear();
                 Buffer.Flush(); //ToDo: fix deadlock on flush
             }
