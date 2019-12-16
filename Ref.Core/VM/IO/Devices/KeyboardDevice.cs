@@ -1,5 +1,4 @@
 ﻿using Ref.Core.VM.Core.Ports;
-using Ref.Core.VM.IO.MappedIO;
 
 namespace Ref.Core.VM.IO.Devices
 {
@@ -11,8 +10,6 @@ namespace Ref.Core.VM.IO.Devices
 
         public KeyboardDevice()
         {
-            _globalKeyboardHook = new GlobalKeyboardHook();
-            _globalKeyboardHook.KeyboardPressed += OnKeyPressed;
         }
 
         public void Dispose()
@@ -31,7 +28,15 @@ namespace Ref.Core.VM.IO.Devices
 
         public void HandleWrite(int port, int value)
         {
-            throw new System.NotImplementedException();
+            if (value == 1)
+            {
+                _globalKeyboardHook = new GlobalKeyboardHook();
+                _globalKeyboardHook.KeyboardPressed += OnKeyPressed;
+            }
+            else if (value == 0)
+            {
+                _globalKeyboardHook.Dispose();
+            }
         }
 
         private GlobalKeyboardHook _globalKeyboardHook;
