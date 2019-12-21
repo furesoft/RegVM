@@ -37,7 +37,7 @@ namespace Ref.Core
             Heap.Init();
 
             HeapBlock* heapPtr = (HeapBlock*)Marshal.AllocHGlobal(4096);
-            Heap.InitBlock(FixedHeap, 4096, 32);
+            //Heap.InitBlock(FixedHeap, 4096, 32);
             Heap.AddBlock(heapPtr);
         }
 
