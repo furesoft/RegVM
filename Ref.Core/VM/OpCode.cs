@@ -33,5 +33,8 @@
         EQUAL,
         NEQUAL,
         INT,
+
+        NEW,
+        FREE,
     }
 }
