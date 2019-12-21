@@ -46,8 +46,6 @@ namespace Ref.Core.VM.Core
     /// </summary>
     public static unsafe class Heap
     {
-        public static SpinLock? AccessLock;
-        public static bool AccessLockInitialised;
         public static String name = "[UNINITIALISED]";
         public static bool OutputTrace;
         public static bool PreventAllocation = false;
@@ -72,18 +70,12 @@ namespace Ref.Core.VM.Core
             {
                 if (!fblock->expanding)
                 {
-                    EnterCritical("AddBlock");
-                    ShouldExitCritical = true;
+                    return 0;
                 }
             }
 
             b->next = fblock;
             fblock = b;
-
-            if (ShouldExitCritical)
-            {
-                ExitCritical();
-            }
 
             return 1;
         }
@@ -95,8 +87,6 @@ namespace Ref.Core.VM.Core
 
         public static void* Alloc(int size, int boundary, String caller)
         {
-            EnterCritical("Alloc");
-
             int retry = 1;
 
             do
@@ -166,7 +156,6 @@ namespace Ref.Core.VM.Core
                                         //#endif
                                     }
 
-                                    ExitCritical();
                                     return result;
                                 }
 
@@ -185,8 +174,6 @@ namespace Ref.Core.VM.Core
             while (retry > 0);
 
             {
-                ExitCritical();
-
                 return null;
             }
         }
@@ -263,8 +250,6 @@ namespace Ref.Core.VM.Core
 
         public static void Free(void* ptr)
         {
-            EnterCritical("Free");
-
             HeapBlock* b;
             int ptroff;
             int bi, x;
@@ -293,13 +278,9 @@ namespace Ref.Core.VM.Core
                     /* update free block count */
                     b->used -= x - bi;
 
-                    ExitCritical();
                     return;
                 }
             }
-
-            /* this error needs to be raised or reported somehow */
-            ExitCritical();
         }
 
         public static int GetFreeMem(HeapBlock* aBlock)
@@ -359,10 +340,6 @@ namespace Ref.Core.VM.Core
         {
             // Initial heap creation
             ExpandHeap(false);
-
-            AccessLock = new SpinLock();
-
-            AccessLockInitialised = true;
         }
 
         public static int InitBlock(HeapBlock* b, int size, int bsize)
@@ -422,8 +399,6 @@ namespace Ref.Core.VM.Core
         public static void Load(HeapBlock* heapPtr, SpinLock heapLock)
         {
             fblock = heapPtr;
-            AccessLock = heapLock;
-            AccessLockInitialised = AccessLock != null;
         }
 
         /// <summary>
@@ -488,35 +463,14 @@ namespace Ref.Core.VM.Core
         /// <summary>
         ///     Intialises the heap.
         /// </summary>
-        private static bool DoExpandHeap(int Size)
+        private static bool DoExpandHeap(int size)
         {
-            int NumPages = (Size + 4095) / 4096;
-            int FinalSize = NumPages * 4096;
-            int StartAddress = Marshal.AllocHGlobal(FinalSize).ToInt32();
+            IntPtr StartAddress = Marshal.AllocHGlobal(size);
 
             HeapBlock* NewBlockPtr = (HeapBlock*)StartAddress;
-            InitBlock(NewBlockPtr, FinalSize, 32);
+            InitBlock(NewBlockPtr, size, 32);
             AddBlock(NewBlockPtr);
             return true;
-        }
-
-        private static void EnterCritical(String caller)
-        {
-            //BasicConsole.WriteLine("Entering critical section...");
-            if (AccessLockInitialised)
-            {
-                bool l = false; ;
-                AccessLock?.Enter(ref l);
-            }
-        }
-
-        private static void ExitCritical()
-        {
-            //BasicConsole.WriteLine("Exiting critical section...");
-            if (AccessLockInitialised)
-            {
-                AccessLock?.Exit();
-            }
         }
     }
 }
