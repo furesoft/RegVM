@@ -1,6 +1,7 @@
 ﻿using LibObjectFile.Elf;
 using Ref.Core.Parser;
 using Ref.Core.VM;
+using Ref.Core.VM.Core;
 using Ref.Core.VM.Core.Interrupts;
 using Ref.Core.VM.Core.MappedIO;
 using Ref.Core.VM.Core.Ports;
@@ -8,16 +9,15 @@ using Ref.Core.VM.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace Ref.Core
 {
-    public class VirtualMachine
+    public unsafe class VirtualMachine
     {
         public ElfObjectFile Assembly { get; set; }
         public Debugger Debugger { get; set; } = new Debugger();
+        public HeapBlock* FixedHeap { get; set; }
         public Dictionary<OpCode, Instruction> Instructions { get; set; } = new Dictionary<OpCode, Instruction>();
         public RegisterCollection Register { get; set; }
         public Stack Stack { get; set; }
@@ -33,6 +33,12 @@ namespace Ref.Core
             InterruptTable.ScanHandlers();
             MemoryMappedDeviceManager.ScanDevices();
             ErrorTable.ScanErrors();
+
+            Heap.Init();
+
+            HeapBlock* heapPtr = (HeapBlock*)Marshal.AllocHGlobal(4096);
+            Heap.InitBlock(FixedHeap, 4096, 32);
+            Heap.AddBlock(heapPtr);
         }
 
         public void ParseInstruction(BinaryReader r)
