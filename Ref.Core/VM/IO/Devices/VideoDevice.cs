@@ -19,7 +19,7 @@ namespace Ref.Core.VM.IO.Devices
 
         public static void CleanUP()
         {
-            Buffer.Dispose();
+            Buffer?.Dispose();
         }
 
         public static void Enable_ConsoleMode()
