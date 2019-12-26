@@ -6,6 +6,7 @@ using Ref.Core.VM.Core;
 using LibObjectFile.Elf;
 using System.IO;
 using Ref.Shared;
+using Ref.Core.Parser.Core;
 
 namespace TestConsole
 {
@@ -14,6 +15,10 @@ namespace TestConsole
         private static void Main(string[] args)
         {
             VideoDevice.Enable_ConsoleMode();
+
+            var src = ".db \"hello world\"\nmain:\tLOAD8 0x2A, $A";
+            BaseParser.Parse(src);
+
             //VideoDevice.DefaultContext = new MonoDrawingContext();
 
             var file = new AssemblyWriter();
