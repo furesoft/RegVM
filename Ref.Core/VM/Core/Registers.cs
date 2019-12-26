@@ -7,6 +7,6 @@
         KDR, // Keyboard Device Ready Register
         IPR, ORE, BRR, ERR, ACC,
         KDS,
-        HEAP,
+        REF,
     }
 }
