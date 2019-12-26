@@ -17,7 +17,7 @@ namespace TestConsole
             VideoDevice.Enable_ConsoleMode();
 
             var src = ".db \"hello world\"\nmain:\tLOAD8 0x2A, $A";
-            BaseParser.Parse(src);
+            var pr = BaseParser.Parse(src);
 
             //VideoDevice.DefaultContext = new MonoDrawingContext();
 
