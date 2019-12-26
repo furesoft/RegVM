@@ -5,13 +5,9 @@
         NOP = 0x00,
         HLT = 0x01,
 
-        LOAD8 = 0x4,
-        LOAD16 = 0x5,
-        LOAD32 = 0x6,
+        LOAD = 0x4,
 
-        LOADRO8 = 0x7,
-        LOADRO16 = 0x8,
-        LOADRO32 = 0x9,
+        LOADRO = 0x7,
 
         MOV = 0xB,
 
@@ -20,9 +16,7 @@
         JMPE = 0xF,
         JMPNE = 0x10,
 
-        PUSH8 = 0x13,
-        PUSH16 = 0x14,
-        PUSH32 = 0x15,
+        PUSH = 0x13,
 
         POP = 0x19,
 
@@ -30,9 +24,7 @@
 
         INT = 0x1D,
 
-        OUT8 = 0x1F,
-        OUT16 = 0x20,
-        OUT32 = 0x21,
+        OUT = 0x1F,
 
         IN = 0x25,
 
@@ -51,6 +43,6 @@
         DEC = 0x39,
 
         EQUAL = 0x3C,
-        NEQUAL = 0x3C,
+        NEQUAL = 0x3D,
     }
 }

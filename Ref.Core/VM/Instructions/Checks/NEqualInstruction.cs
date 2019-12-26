@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Ref.Core.Parser;
+﻿using Ref.Core.Parser;
 
 namespace Ref.Core.VM.Instructions
 {

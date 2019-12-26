@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using LibObjectFile.Elf;
 using Ref.Core.Parser;
 using Ref.Core.VM.IO;
