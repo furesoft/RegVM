@@ -11,7 +11,7 @@ namespace Ref_Compiler.MiddleWare
         public void Run(Options parameter, Action<Options> next)
         {
             var source = File.ReadAllText(parameter.Input);
-            var parsed = new AsmParser().Parse(source);
+            var parsed = AsmParser.Parse(source);
 
             parameter.Tags.Add("AST", parsed);
 

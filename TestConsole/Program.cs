@@ -5,8 +5,7 @@ using Ref.Core.VM.IO.Devices;
 using Ref.Core.VM.Core;
 using LibObjectFile.Elf;
 using System.IO;
-using Ref.Shared;
-using Ref.Core.Parser.Core;
+using Ref.Core.Parser;
 
 namespace TestConsole
 {
@@ -16,8 +15,8 @@ namespace TestConsole
         {
             VideoDevice.Enable_ConsoleMode();
 
-            var src = ".db \"hello world\"\nmain:\tLOAD8 0x2A, $A";
-            var pr = BaseParser.Parse(src);
+            var src = ".db 42\nLOAD8 0x2A, $A";
+            var pr = AsmParser.Parse(src);
 
             //VideoDevice.DefaultContext = new MonoDrawingContext();
 

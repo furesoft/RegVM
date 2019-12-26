@@ -9,22 +9,21 @@ namespace Ref.Core.Parser
     {
         public static AsmCommandArg CreateArg(string s)
         {
-            return new AsmCommandArg { Value = int.Parse(s) };
-        }
+            if (s.StartsWith("0x"))
+            {
+                return new AsmCommandArg { Value = Convert.ToInt32(s, 16), Type = ArgType.Literal };
+            }
+            if (s.StartsWith("$"))
+            {
+                return new AsmCommandArg { Value = s.Substring(1), Type = ArgType.Register };
+            }
 
-        public static string CreateBinInteger(string bin)
-        {
-            return Convert.ToInt32(bin.Replace("_", ""), 2).ToString();
+            return new AsmCommandArg { Value = int.Parse(s), Type = ArgType.Literal };
         }
 
         public static AsmCommand CreateCommand(string op, IList<AsmCommandArg> args)
         {
             return new AsmCommand { Name = op, Args = args.ToList() };
-        }
-
-        public static string CreateHexInteger(string hex)
-        {
-            return int.Parse(hex, NumberStyles.HexNumber).ToString();
         }
 
         public static LabelDefintionNode CreateLabel(string name, IList<AsmCommand> body)
