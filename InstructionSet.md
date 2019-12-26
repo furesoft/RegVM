@@ -1,11 +1,11 @@
-| Mnenomic | HexValue | Comment 
+| Mnenomic | HexValue | Comment | Example 
 |----|----|
 | NOP | 0x00 |
 | HLT | 0x01 |
 | LOAD8 | 0x4 | 
 | LOAD16 | 0x5 | 
 | LOAD32 | 0x6 |
-| LOADRO8 | 0x7 | for readonly use flag in assembly :ro
+| LOADRO8 | 0x7 | for readonly use flag in assembly :ro | LOAD8 :ro
 | LOADRO16 | 0x8 | 
 | LOADRO32 | 0x9 |
 | MOV | 0xB |
