@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using LibObjectFile.Elf;
 using PipelineNet.Middleware;
 using Ref.Core;
 using Ref.Core.Parser;
@@ -22,6 +23,23 @@ namespace Ref_Compiler.MiddleWare
             }
 
             writer.CreateCodeSection(cmdBuffer);
+
+            var roStrm = new MemoryStream();
+            var bw = new BinaryWriter(roStrm);
+
+            foreach (var ro in ast.DataCommands)
+            {
+                if (ro.Name == "db")
+                {
+                    foreach (var arg in ro.Args)
+                    {
+                        var value = GetArg(arg);
+                        bw.Write(value);
+                    }
+                }
+            }
+
+            writer.Elf.AddSection(new ElfCustomSection(roStrm)).ConfigureAs(ElfSectionSpecialType.ReadOnlyData);
 
             File.WriteAllBytes(parameter.Output, writer.Save());
 
