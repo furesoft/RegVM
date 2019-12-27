@@ -41,6 +41,10 @@ namespace Ref_Compiler.MiddleWare
 
             writer.Elf.AddSection(new ElfCustomSection(roStrm)).ConfigureAs(ElfSectionSpecialType.ReadOnlyData);
 
+            //ToDo: implement loading string in assembly to string table, then load stringtable on heap on loading .vm file
+            var stringtable = writer.Elf.AddSection(new ElfStringTable());
+            stringtable.GetOrCreateIndex("hello world");
+
             File.WriteAllBytes(parameter.Output, writer.Save());
 
             next(parameter);
