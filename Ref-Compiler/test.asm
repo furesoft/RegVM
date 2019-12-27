@@ -1,4 +1,4 @@
 ﻿load $a, 0x2a
-mov $b, #3
+load $b, 0x2a
 
-sub $a, #b
+sub $a, $b

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using PipelineNet.Middleware;
+using Ref.Core;
 using Ref.Core.Parser;
 using Ref.Core.VM.IO;
 
@@ -17,7 +18,7 @@ namespace Ref_Compiler.MiddleWare
 
             foreach (var line in ast.Commands)
             {
-                cmdBuffer.Add(line.OpCode, line.Args.Select(_ => (int)_.Value).ToArray());
+                cmdBuffer.Add(line.OpCode, line.Args.Select(_ => GetArg(_)).ToArray());
             }
 
             writer.CreateCodeSection(cmdBuffer);
@@ -25,6 +26,14 @@ namespace Ref_Compiler.MiddleWare
             File.WriteAllBytes(parameter.Output, writer.Save());
 
             next(parameter);
+        }
+
+        private int GetArg(AsmCommandArg _)
+        {
+            if (_.Type == ArgType.Literal) return (int)_.Value;
+            else if (_.Type == ArgType.Register) return (int)(Registers)Enum.Parse(typeof(Registers), _.Value.ToString(), true);
+
+            return -1;
         }
     }
 }

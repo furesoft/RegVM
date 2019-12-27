@@ -8,5 +8,6 @@
         IPR, ORE, BRR, ERR, ACC,
         KDS,
         REF,
+        HEAP,
     }
 }
