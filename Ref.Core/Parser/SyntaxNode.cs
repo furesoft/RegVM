@@ -23,7 +23,17 @@ namespace Ref.Core.Parser
 
         public static AsmCommand CreateCommand(string op, IList<AsmCommandArg> args)
         {
-            return new AsmCommand { Name = op, Args = args.ToList() };
+            try
+            {
+                return new AsmCommand { Name = op, OpCode = (OpCode)Enum.Parse(typeof(OpCode), op, true), Args = args.ToList() };
+            }
+            catch { }
+
+            return new AsmCommand
+            {
+                Name = op,
+                Args = args.ToList()
+            };
         }
 
         public static LabelDefintionNode CreateLabel(string name, IList<AsmCommand> body)
