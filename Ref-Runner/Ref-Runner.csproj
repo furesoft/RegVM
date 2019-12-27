@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\Ref-Compiler\bin\Debug\netcoreapp3.1\test.vm" Link="test.vm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ref.Core\Ref.Core.csproj" />
     <ProjectReference Include="..\Ref.Shared\Ref.Shared.csproj" />
   </ItemGroup>

@@ -17,7 +17,7 @@ namespace RefVM_Runner
             var vm = new VirtualMachine(ass);
 
             VideoDevice.Enable_ConsoleMode();
-            VideoDevice.DefaultContext = new MonoDrawingContext();
+            //VideoDevice.DefaultContext = new MonoDrawingContext();
 
             vm.Run();
 
