@@ -5,6 +5,19 @@ namespace Ref.Core.VM.IO
 {
     public static class ElfFileExtensions
     {
+        public static T GetSection<T>(this ElfObjectFile file, string name)
+            where T : ElfSection
+        {
+            foreach (var sec in file.Sections)
+            {
+                if (sec.Name.Value == name)
+                {
+                    return (T)sec;
+                }
+            }
+            return (T)file.Sections.Where(_ => _.Name.Value == name).FirstOrDefault();
+        }
+
         public static T GetSection<T>(this ElfObjectFile file, ElfSectionSpecialType sectionSpecialType)
             where T : ElfSection
         {
