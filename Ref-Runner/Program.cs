@@ -15,7 +15,7 @@ namespace RefVM_Runner
             var filename = args.First();
             var ass = ElfObjectFile.Read(File.Open(filename, FileMode.OpenOrCreate));
             var vm = new VirtualMachine(ass);
-
+            ass.GetInfo();
             VideoDevice.Enable_ConsoleMode();
             //VideoDevice.DefaultContext = new MonoDrawingContext();
 

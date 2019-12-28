@@ -1,4 +1,7 @@
-﻿.db msg "hello world from VM"
+﻿.meta version "1.0.0.0"
+.meta name "HelloWorld"
+
+.db msg "hello world from VM"
 .db 0x2a
 .db 0xC0FFEE
 
