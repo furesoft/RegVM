@@ -9,4 +9,5 @@
 | BRR | Boolean Check Result Register|
 | ERR | Error Register |
 | ACC | Result Register |
+| REM | Remainder Register for Division|
 | REF | Heap Reference Register |

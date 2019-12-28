@@ -9,5 +9,6 @@
         KDS,
         REF,
         HEAP,
+        REM,
     }
 }
