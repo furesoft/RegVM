@@ -24,6 +24,8 @@ namespace Ref_Compiler.MiddleWare
 
             writer.CreateCodeSection(cmdBuffer);
 
+            var stringtable = writer.Elf.AddSection(new ElfStringTable());
+
             var roStrm = new MemoryStream();
             var bw = new BinaryWriter(roStrm);
 
@@ -31,6 +33,12 @@ namespace Ref_Compiler.MiddleWare
             {
                 if (ro.Name == "db")
                 {
+                    if (ro.Args.First().Value.ToString() == "msg")
+                    {
+                        stringtable.GetOrCreateIndex(ro.Args[1].Value.ToString());
+
+                        continue;
+                    }
                     foreach (var arg in ro.Args)
                     {
                         var value = GetArg(arg);
@@ -40,10 +48,6 @@ namespace Ref_Compiler.MiddleWare
             }
 
             writer.Elf.AddSection(new ElfCustomSection(roStrm)).ConfigureAs(ElfSectionSpecialType.ReadOnlyData);
-
-            //ToDo: implement loading string in assembly to string table, then load stringtable on heap on loading .vm file
-            var stringtable = writer.Elf.AddSection(new ElfStringTable());
-            stringtable.GetOrCreateIndex("hello world");
 
             File.WriteAllBytes(parameter.Output, writer.Save());
 
