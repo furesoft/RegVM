@@ -1,12 +1,20 @@
 ﻿using LibObjectFile.Elf;
+using System.IO;
 using System.Linq;
 
 namespace Ref.Core.VM.IO
 {
     public static class ElfFileExtensions
     {
+        public static AssemblyInfo GetInfo(this ElfObjectFile file)
+        {
+            var section = file.GetSection<ElfCustomSection>(ElfSectionSpecialType.Data);
+
+            return AssemblyInfo.Deserialize(((MemoryStream)section.Stream).ToArray());
+        }
+
         public static T GetSection<T>(this ElfObjectFile file, string name)
-            where T : ElfSection
+                    where T : ElfSection
         {
             foreach (var sec in file.Sections)
             {

@@ -25,6 +25,7 @@ namespace Ref_Compiler.MiddleWare
             writer.CreateCodeSection(cmdBuffer);
 
             var stringtable = writer.Elf.AddSection(new ElfStringTable());
+            var meta = new AssemblyInfo();
 
             var roStrm = new MemoryStream();
             var bw = new BinaryWriter(roStrm);
@@ -45,8 +46,26 @@ namespace Ref_Compiler.MiddleWare
                         bw.Write(value);
                     }
                 }
+                if (ro.Name == "meta")
+                {
+                    switch (ro.Args.First().Value)
+                    {
+                        case "id":
+                            meta.ID = Guid.Parse(ro.Args[1].Value.ToString());
+                            break;
+
+                        case "version":
+                            meta.Version = ro.Args[1].Value.ToString();
+                            break;
+
+                        case "name":
+                            meta.Name = ro.Args[1].Value.ToString();
+                            break;
+                    }
+                }
             }
 
+            writer.CreateMetaSection(meta);
             writer.Elf.AddSection(new ElfCustomSection(roStrm)).ConfigureAs(ElfSectionSpecialType.ReadOnlyData);
 
             File.WriteAllBytes(parameter.Output, writer.Save());

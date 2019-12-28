@@ -6,6 +6,7 @@ namespace Ref.Core.VM.IO
     public class AssemblyInfo
     {
         public Guid ID { get; set; }
+        public string Name { get; set; }
         public string Version { get; set; }
 
         public static AssemblyInfo Deserialize(byte[] raw)
@@ -13,6 +14,7 @@ namespace Ref.Core.VM.IO
             var br = new BinaryReader(new MemoryStream(raw));
             var res = new AssemblyInfo();
             res.ID = new Guid(br.ReadBytes(16));
+            res.Name = br.ReadString();
             res.Version = br.ReadString();
 
             return res;
@@ -24,6 +26,7 @@ namespace Ref.Core.VM.IO
             var bw = new BinaryWriter(ms);
 
             bw.Write(ID.ToByteArray());
+            bw.Write(Name);
             bw.Write(Version);
 
             return ms.ToArray();
