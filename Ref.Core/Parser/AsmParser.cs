@@ -14,7 +14,7 @@ namespace Ref.Core.Parser
                 if (line.StartsWith(".")) // when line is a db entry
                 {
                     var linecmd = line.Substring(1);
-                    var spl = linecmd.Split(' ');
+                    var spl = Utils.Split(linecmd);
                     var datacmd = SyntaxNode.CreateCommand(spl[0], ParseArgs(linecmd.Substring(spl[0].Length + 1)));
 
                     res.DataCommands.Add(datacmd);
@@ -34,7 +34,7 @@ namespace Ref.Core.Parser
         {
             var res = new List<AsmCommandArg>();
 
-            var spl = line.Split(new char[] { ' ', ',' }, System.StringSplitOptions.RemoveEmptyEntries);
+            var spl = Utils.Split(line);
             foreach (var arg in spl)
             {
                 res.Add(SyntaxNode.CreateArg(arg));

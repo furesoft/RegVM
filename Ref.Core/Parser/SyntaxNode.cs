@@ -17,8 +17,12 @@ namespace Ref.Core.Parser
             {
                 return new AsmCommandArg { Value = s.Substring(1), Type = ArgType.Register };
             }
+            if (s.StartsWith("#"))
+            {
+                return new AsmCommandArg { Value = int.Parse(s.Substring(1)), Type = ArgType.Literal };
+            }
 
-            return new AsmCommandArg { Value = int.Parse(s), Type = ArgType.Literal };
+            return new AsmCommandArg { Type = ArgType.Option, Value = s };
         }
 
         public static AsmCommand CreateCommand(string op, IList<AsmCommandArg> args)

@@ -4,7 +4,8 @@ namespace Ref.Core.Parser
 {
     public enum ArgType
     {
-        Register, Literal, Label
+        Register, Literal, Label,
+        Option
     }
 
     public class AsmCommand
