@@ -30,6 +30,7 @@
 
         NEW = 0x2B,
         FREE = 0x2C,
+        STORE = 0x2D,
 
         CALL = 0x2E,
         RET = 0x2F,
