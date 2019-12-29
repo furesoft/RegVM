@@ -45,5 +45,7 @@
 
         EQUAL = 0x3C,
         NEQUAL = 0x3D,
+
+        DEREF = 0x3F,
     }
 }
