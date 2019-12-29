@@ -1,8 +1,8 @@
 # RegVM
-A register based Virtua maschine written in csharp
+A register based Virtual maschine written in csharp
 
-## ToDo
-[ ] implement heap
-[] implement data types
-[ ] implement type system
+Assembly Parser currently working
 
+This VM is isolated. Every type of memory (heap, stack, register) is isolated.
+
+OpCode and assembly language wishes and help are welcome
