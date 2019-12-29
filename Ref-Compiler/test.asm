@@ -8,9 +8,10 @@
 increment:
 	inc $a
 	int 0x123
+	call 0xC0FFEE
 
 load $a, 0x2a
 
-call @increment
+jmp @increment
 
 int 0x6A03E

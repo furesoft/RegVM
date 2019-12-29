@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Ref.Core.Parser;
+﻿using Ref.Core.Parser;
 using Ref.Core.VM.Core;
+using System;
 
 namespace Ref.Core.VM.Instructions
 {
@@ -13,8 +11,17 @@ namespace Ref.Core.VM.Instructions
         public override void Invoke(AsmCommand cmd, VirtualMachine vm)
         {
             var cll = (int)cmd[0];
-            vm.Stack.PushRegisters(vm.Register);
-            vm.Register[Registers.IPR] = cll;
+
+            if (vm.Functions.ContainsKey(cll))
+            {
+                var del = (Delegate)vm.Functions[cll];
+                del.DynamicInvoke();
+            }
+            else
+            {
+                vm.Stack.PushRegisters(vm.Register);
+                vm.Register[Registers.IPR] = cll;
+            }
         }
     }
 }
