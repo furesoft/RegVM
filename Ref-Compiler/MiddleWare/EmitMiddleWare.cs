@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LibObjectFile.Elf;
@@ -16,6 +17,18 @@ namespace Ref_Compiler.MiddleWare
             var ast = (AsmFile)parameter.Tags["AST"];
             var writer = new AssemblyWriter();
             var cmdBuffer = new CommandWriter();
+
+            foreach (var lbl in ast.Labels)
+            {
+                int id = cmdBuffer.MakeLabel();
+
+                foreach (var line in lbl.Commands)
+                {
+                    cmdBuffer.Add(line.OpCode, line.Args.Select(_ => GetArg(_)).ToArray());
+                }
+
+                _labels.Add(lbl.Name, id);
+            }
 
             foreach (var line in ast.Commands)
             {
@@ -73,10 +86,14 @@ namespace Ref_Compiler.MiddleWare
             next(parameter);
         }
 
+        private Dictionary<string, int> _labels = new Dictionary<string, int>();
+
         private int GetArg(AsmCommandArg _)
         {
             if (_.Type == ArgType.Literal) return (int)_.Value;
             else if (_.Type == ArgType.Register) return (int)(Registers)Enum.Parse(typeof(Registers), _.Value.ToString(), true);
+            else if (_.Type == ArgType.Label)
+                return _labels[_.Value.ToString()];
 
             return -1;
         }
