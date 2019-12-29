@@ -13,10 +13,4 @@ namespace Ref.Core.Parser
             return new AsmFile();
         }
     }
-
-    public class AsmLabel
-    {
-        public List<AsmCommand> Commands { get; set; }
-        public string Name { get; set; }
-    }
 }
