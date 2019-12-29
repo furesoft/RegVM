@@ -14,9 +14,9 @@ namespace Ref.Core.VM.Instructions
 
             unsafe
             {
-                var ptr = new IntPtr(Heap.Alloc(size, "[VM]"));
+                var ptr = new IntPtr(Heap.Alloc(size));
 
-                vm.Register[Registers.HEAP] = ptr.ToInt32();
+                vm.Register[Registers.HEAP] = (int)ptr;
             }
         }
     }

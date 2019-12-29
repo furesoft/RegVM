@@ -21,6 +21,10 @@ namespace Ref.Core.Parser
             {
                 return new AsmCommandArg { Value = int.Parse(s.Substring(1)), Type = ArgType.Literal };
             }
+            if (s.StartsWith("@"))
+            {
+                return new AsmCommandArg { Value = s.Substring(1), Type = ArgType.Label };
+            }
 
             return new AsmCommandArg { Type = ArgType.Option, Value = s };
         }
@@ -38,11 +42,6 @@ namespace Ref.Core.Parser
                 Name = op,
                 Args = args.ToList()
             };
-        }
-
-        public static LabelDefintionNode CreateLabel(string name, IList<AsmCommand> body)
-        {
-            return new LabelDefintionNode { Name = name, Body = body.ToList() };
         }
 
         public static AsmCommandArg CreateLabelCall(string name)

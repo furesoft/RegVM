@@ -60,16 +60,8 @@ namespace TestConsole
             vm.Run();
             vm.SetMemoryOf<Register>(0, 0x2a);
 
-            unsafe
-            {
-                var free = Heap.GetFreeMem(Heap.FBlock);
-                var used = Heap.GetUsedMem(Heap.FBlock);
+            Console.ReadLine();
 
-                Console.WriteLine("Free: " + free);
-                Console.WriteLine("Used: " + used);
-
-                Console.ReadLine();
-            }
             /*Utils.PrintRegisters(vm.Register);
 
             Console.WriteLine("Register: " + vm.ViewMemoryOf<Register>(50).ToHex());
