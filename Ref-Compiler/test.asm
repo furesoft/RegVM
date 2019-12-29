@@ -7,11 +7,15 @@
 
 increment:
 	inc $a
-	int 0x123
 	call 0xC0FFEE
+	int 0x123
 
 load $a, 0x2a
 
 jmp @increment
+jmp @increment
+jmp @increment
+jmp @increment
+
 
 int 0x6A03E

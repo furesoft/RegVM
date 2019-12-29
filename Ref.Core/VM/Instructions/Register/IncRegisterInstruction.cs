@@ -12,7 +12,7 @@ namespace Ref.Core.VM.Instructions.Register
         public override void Invoke(AsmCommand cmd, VirtualMachine vm)
         {
             var reg = (Registers)(int)cmd[0];
-            vm.Register[reg]++;
+            vm.Register[reg] = vm.Register[reg] + 1;
         }
     }
 }
