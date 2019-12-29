@@ -17,7 +17,7 @@ namespace Ref.Core
     {
         public ElfObjectFile Assembly { get; set; }
         public Debugger Debugger { get; set; } = new Debugger();
-        public HeapBlock* FixedHeap { get; set; }
+
         public Dictionary<OpCode, Instruction> Instructions { get; set; } = new Dictionary<OpCode, Instruction>();
         public RegisterCollection Register { get; set; }
         public Stack Stack { get; set; }
@@ -33,12 +33,6 @@ namespace Ref.Core
             InterruptTable.ScanHandlers();
             MemoryMappedDeviceManager.ScanDevices();
             ErrorTable.ScanErrors();
-
-            Heap.Init();
-
-            HeapBlock* heapPtr = (HeapBlock*)Marshal.AllocHGlobal(4096);
-            //Heap.InitBlock(FixedHeap, 4096, 32);
-            Heap.AddBlock(heapPtr);
         }
 
         public void ParseInstruction(BinaryReader r)
