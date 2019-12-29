@@ -5,11 +5,12 @@
 .db 0x2a
 .db 0xC0FFEE
 
-load $a, 0x2a
 increment:
 	inc $a
+	int 0x123
 
-jmp @increment
+load $a, 0x2a
 
-int 0x123
+call @increment
+
 int 0x6A03E
