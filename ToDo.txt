@@ -1,0 +1,3 @@
+[ ] LabelTable Section
+	- save all label positions in custom section
+	- when label call, read from table and jump to that position 
