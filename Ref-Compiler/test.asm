@@ -5,17 +5,16 @@
 .db 0x2a
 .db 0xC0FFEE
 
+load $a, 0x2a
+
 increment:
 	inc $a
 	call 0xC0FFEE
 	int 0x123
 
-load $a, 0x2a
-
 jmp @increment
 jmp @increment
 jmp @increment
 jmp @increment
-
 
 int 0x6A03E
